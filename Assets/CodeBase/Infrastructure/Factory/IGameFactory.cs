@@ -12,5 +12,6 @@ namespace CodeBase.Infrastructure.Factory
         List<ISavedProgressReader> ReadersList { get; }
         List<ISavedProgressWriter> WritersList { get; }
         void CleanUp();
+        GameObject CreateGroundChunk(Vector3 at, Vector3 forward, Vector3 scale);
     }
 }

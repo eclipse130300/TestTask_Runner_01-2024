@@ -57,6 +57,9 @@ namespace CodeBase.Infrastructure.States
 
             _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(),
                 _services.Single<IGameFactory>()));
+
+            _services.RegisterSingle<ILevelGeneratorService>(new LevelGeneratorService(_services.Single<IStaticDataService>(),
+                _services.Single<IGameFactory>()));
         }
 
         private void RegisterStaticData()

@@ -44,6 +44,16 @@ namespace CodeBase.Infrastructure.Factory
             return hud;
         }
 
+        public GameObject CreateGroundChunk(Vector3 at, Vector3 forward, Vector3 scale)
+        {
+            var chunk = _assetProvider.Instantiate(AssetPath.GROUND_CHUNK_PATH);
+            chunk.transform.position = at;
+            chunk.transform.forward = forward;
+            chunk.transform.localScale = scale;
+
+            return chunk;
+        }
+
         public void CleanUp()
         {
             ReadersList?.Clear();

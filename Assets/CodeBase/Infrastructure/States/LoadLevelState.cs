@@ -9,15 +9,14 @@ namespace CodeBase.Infrastructure.States
 {
     public class LoadLevelState : IPayloadedState<string>
     {
-        private const string INITIALPOINT_TAG = "InitialPoint";
-
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
         private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
         private readonly IStaticDataService _staticDataService;
-        private IUIFactory _uiFactory;
+        private readonly IUIFactory _uiFactory;
+        private readonly ILevelGeneratorService _levelGeneratorService;
 
         public LoadLevelState(
             GameStateMachine stateMachine,
@@ -27,9 +26,11 @@ namespace CodeBase.Infrastructure.States
             IGameFactory gameFactory,
             IPersistentProgressService progressService,
             IStaticDataService staticDataService,
-            IUIFactory uiFactory)
+            IUIFactory uiFactory,
+            ILevelGeneratorService levelGeneratorService)
         {
             _uiFactory = uiFactory;
+            this._levelGeneratorService = levelGeneratorService;
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
@@ -71,14 +72,18 @@ namespace CodeBase.Infrastructure.States
         private void InitGameWorld()
         {
             InitHud();
+            GenerateLevel();
             
             var hero = InitHero();
             CameraFollow(hero);
         }
 
+        private void GenerateLevel() => 
+            _levelGeneratorService.PreloadLevel();
+
         private GameObject InitHero()
         {
-            var initialPoint = GameObject.FindWithTag(INITIALPOINT_TAG);
+            var initialPoint = GameObject.FindWithTag(Constants.INITIALPOINT_TAG);
             var hero = _gameFactory.CreateHero(at: initialPoint);
             return hero;
         }

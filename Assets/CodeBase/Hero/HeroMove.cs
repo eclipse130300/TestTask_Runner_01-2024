@@ -20,6 +20,8 @@ namespace CodeBase.Hero
 
         private Vector3 _initialPoint;
 
+        private Coroutine _strafingCoroutine = null;
+
         private void Awake()
         {
             _inputService = AllServices.Container.Single<IInputService>();
@@ -39,8 +41,9 @@ namespace CodeBase.Hero
             var destinationPoint = CalculateDestinationPoint(inputSigned);
             var strafeTime = _staticDataService.ForLevel().StrafeAnimationTime;
 
-            if (HasInput() && CanStrafeTo(destinationPoint))
+            if (HasInput() && CanStrafeTo(destinationPoint) && !_isStrafing)
             {
+                _isStrafing = true;
                 _coroutineRunnerService.StartCoroutine(DoStrafe(destinationPoint, strafeTime));
             }
         }
@@ -58,12 +61,12 @@ namespace CodeBase.Hero
         {
             var maxUnits = _staticDataService.ForLevel().SpacingBetweenPaths;
 
-            return !_isStrafing && !destinationPoint.VectorLengthIsGreaterThan(maxUnits);
+            return !destinationPoint.VectorLengthIsGreaterThan(maxUnits);
         }
 
         private IEnumerator DoStrafe(Vector3 destinationPoint, float strafeTime)
         {
-            _isStrafing = true;
+            Debug.Log("Started strafing");
             
             var startPos = transform.position;
             
@@ -73,14 +76,20 @@ namespace CodeBase.Hero
             {
                 t += Time.deltaTime;
                 var newPos = Vector3.Lerp(startPos, destinationPoint, t / strafeTime);
+
+                if ((transform.position - newPos).magnitude > 1)
+                {
+                    Debug.Log("OOOOPS");
+                }
+                
                 transform.position = newPos;
 
+                yield return new WaitForEndOfFrame();
+                
                 if (newPos == destinationPoint)
                 {
                     _isStrafing = false;
                 }
-                
-                yield return null;
             }
         }
 
