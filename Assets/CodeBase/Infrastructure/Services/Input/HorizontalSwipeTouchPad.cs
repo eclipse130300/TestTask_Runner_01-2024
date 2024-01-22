@@ -48,8 +48,6 @@ namespace SimpleInputNamespace
             PointerEventData pointer = GetSatisfyingPointer( mousePointers, touchPointers );
             if( pointer == null )
                 return false;
-
-            Debug.Log(pointer.delta.x);
             
             if (Mathf.Abs(pointer.delta.x) < deltaTreshold)
             {

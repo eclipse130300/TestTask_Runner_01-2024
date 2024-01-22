@@ -6,6 +6,7 @@ namespace CodeBase.StaticData
     [CreateAssetMenu(fileName = "LevelData", menuName = "StaticData/Level")]
     public class LevelStaticData : ScriptableObject
     {
-        public string LevelKey;
+        public float SpacingBetweenPaths = 3f;
+        public float StrafeAnimationTime = 0.5f;
     }
 }

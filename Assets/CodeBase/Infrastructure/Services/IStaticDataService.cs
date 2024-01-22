@@ -5,6 +5,6 @@ using CodeBase.UI.Services.Windows;
 public interface IStaticDataService : IService
 {
     void Load();
-    LevelStaticData ForLevel(string sceneKey);
+    LevelStaticData ForLevel();
     WindowConfig ForWindow(WindowType shop);
 }

@@ -15,6 +15,11 @@ public static class DataExtensions
         return vector;
     }
 
+    public static bool VectorLengthIsGreaterThan(this Vector3 basePoint, float units)
+    {
+        return Vector3.Magnitude(basePoint) > units;
+    }
+
     public static string ToJson<T>(this T objectToConvert) =>
         JsonUtility.ToJson(objectToConvert);
 }

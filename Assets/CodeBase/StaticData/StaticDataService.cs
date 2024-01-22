@@ -12,22 +12,18 @@ namespace CodeBase.StaticData
         private const string STATICDATA_WINDOWS = "StaticData/Windows/WindowsStaticData";
         
         
-        private Dictionary<string, LevelStaticData> _levels;
+        private LevelStaticData _levelStaticData;
         private Dictionary<WindowType,WindowConfig> _windowConfigs;
 
         public void Load()
         {
-            _levels = Resources.LoadAll<LevelStaticData>(STATICDATA_LEVELS)
-                               .ToDictionary(x => x.LevelKey, x => x);
+            _levelStaticData = Resources.Load<LevelStaticData>(STATICDATA_LEVELS);
 
             _windowConfigs = Resources.Load<WindowsStaticData>(STATICDATA_WINDOWS).Configs
                                       .ToDictionary(x => x.WindowType, x => x);
         }
-        
-        public LevelStaticData ForLevel(string sceneKey) =>  
-            _levels.TryGetValue(sceneKey, out LevelStaticData staticData) 
-                ? staticData
-                : null;
+
+        public LevelStaticData ForLevel() => _levelStaticData;
 
         public WindowConfig ForWindow(WindowType windowType) =>
             _windowConfigs.TryGetValue(windowType, out WindowConfig staticData) 

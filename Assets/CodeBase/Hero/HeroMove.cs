@@ -12,18 +12,19 @@ namespace CodeBase.Hero
         [SerializeField]
         private CharacterController _characterController;
 
-        [SerializeField]
-        private float movementSpeed;
-
         private IInputService _inputService;
         private ICoroutineRunnerService _coroutineRunnerService;
+        private IStaticDataService _staticDataService;
         private Camera _camera;
         private bool _isStrafing;
+
+        private Vector3 _initialPoint;
 
         private void Awake()
         {
             _inputService = AllServices.Container.Single<IInputService>();
             _coroutineRunnerService = AllServices.Container.Single<ICoroutineRunnerService>();
+            _staticDataService = AllServices.Container.Single<IStaticDataService>();
         }
 
         private void Start()
@@ -35,30 +36,43 @@ namespace CodeBase.Hero
         {
             var inputSigned = new Vector2(Mathf.Sign(_inputService.Axis.x), 0);
             
-            Vector3 movementVector = Vector3.zero;
+            var destinationPoint = CalculateDestinationPoint(inputSigned);
+            var strafeTime = _staticDataService.ForLevel().StrafeAnimationTime;
 
-            if (HasInput() && !_isStrafing)
+            if (HasInput() && CanStrafeTo(destinationPoint))
             {
-                _coroutineRunnerService.StartCoroutine(DoStrafe(inputSigned));
+                _coroutineRunnerService.StartCoroutine(DoStrafe(destinationPoint, strafeTime));
             }
         }
 
-        private IEnumerator DoStrafe(Vector2 input)
+        private Vector3 CalculateDestinationPoint(Vector2 inputSigned)
+        {
+            var side = _camera.transform.TransformDirection(inputSigned);
+            var levelData = _staticDataService.ForLevel();
+
+            var destinationPoint = transform.position + side * levelData.SpacingBetweenPaths;
+            return destinationPoint;
+        }
+
+        private bool CanStrafeTo(Vector3 destinationPoint)
+        {
+            var maxUnits = _staticDataService.ForLevel().SpacingBetweenPaths;
+
+            return !_isStrafing && !destinationPoint.VectorLengthIsGreaterThan(maxUnits);
+        }
+
+        private IEnumerator DoStrafe(Vector3 destinationPoint, float strafeTime)
         {
             _isStrafing = true;
-
-            var side = _camera.transform.TransformDirection(input);
             
             var startPos = transform.position;
-            var destinationPoint = transform.position + side;
-
+            
             float t = 0;
-            float animationTime = 1f;
             
             while (_isStrafing)
             {
                 t += Time.deltaTime;
-                var newPos = Vector3.Lerp(startPos, destinationPoint, t / animationTime);
+                var newPos = Vector3.Lerp(startPos, destinationPoint, t / strafeTime);
                 transform.position = newPos;
 
                 if (newPos == destinationPoint)
