@@ -7,15 +7,15 @@ namespace CodeBase.Infrastructure
 {
     public class SceneLoader
     {
-        private readonly ICoroutineRunner _coroutineRunner;
+        private readonly ICoroutineRunnerService coroutineRunnerService;
 
-        public SceneLoader(ICoroutineRunner coroutineRunner)
+        public SceneLoader(ICoroutineRunnerService coroutineRunnerService)
         {
-            _coroutineRunner = coroutineRunner;
+            this.coroutineRunnerService = coroutineRunnerService;
         }
 
         public void Load(string name, Action onLoad = null) =>
-            _coroutineRunner.StartCoroutine(LoadScene(name, onLoad));
+            coroutineRunnerService.StartCoroutine(LoadScene(name, onLoad));
 
         private IEnumerator LoadScene(string nextScene, Action onLoad = null)
         {

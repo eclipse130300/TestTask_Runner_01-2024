@@ -2,11 +2,8 @@
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
-using CodeBase.StaticData;
-using CodeBase.UI.Elements;
 using CodeBase.UI.Services;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -26,6 +23,7 @@ namespace CodeBase.Infrastructure.States
             GameStateMachine stateMachine,
             SceneLoader sceneLoader,
             LoadingCurtain loadingCurtain,
+            TickableManager tickableManager,
             IGameFactory gameFactory,
             IPersistentProgressService progressService,
             IStaticDataService staticDataService,
@@ -40,11 +38,11 @@ namespace CodeBase.Infrastructure.States
             _staticDataService = staticDataService;
         }
 
-        public void Enter(string loadSceneName)
+        public void Enter(string payload)
         {
             _loadingCurtain.Show();
             _gameFactory.CleanUp();
-            _sceneLoader.Load(loadSceneName, OnLoad);
+            _sceneLoader.Load(payload, OnLoad);
         }
 
         public void Exit()
@@ -58,7 +56,7 @@ namespace CodeBase.Infrastructure.States
             InitGameWorld();
             InformProgressReaders();
 
-            _stateMachine.Enter<GameLoopState>();
+            _stateMachine.Enter<GameplayPausedState, bool>(true);
         }
 
         private void InitUIRoot() => 
@@ -72,17 +70,10 @@ namespace CodeBase.Infrastructure.States
 
         private void InitGameWorld()
         {
-            InitSpawners();
             InitHud();
             
             var hero = InitHero();
             CameraFollow(hero);
-        }
-
-        private void InitSpawners()
-        {
-            string sceneKey = SceneManager.GetActiveScene().name;
-            LevelStaticData levelData = _staticDataService.ForLevel(sceneKey);
         }
 
         private GameObject InitHero()

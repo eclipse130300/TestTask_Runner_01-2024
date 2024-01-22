@@ -1,11 +1,13 @@
+using System.Collections;
 using CodeBase.Infrastructure;
 using CodeBase.Services.Input;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace CodeBase.Hero
 {
-    public class HeroMove : MonoBehaviour, ISavedProgressWriter
+    public class HeroMove : MonoBehaviour
     {
         [SerializeField]
         private CharacterController _characterController;
@@ -14,11 +16,14 @@ namespace CodeBase.Hero
         private float movementSpeed;
 
         private IInputService _inputService;
+        private ICoroutineRunnerService _coroutineRunnerService;
         private Camera _camera;
+        private bool _isStrafing;
 
         private void Awake()
         {
             _inputService = AllServices.Container.Single<IInputService>();
+            _coroutineRunnerService = AllServices.Container.Single<ICoroutineRunnerService>();
         }
 
         private void Start()
@@ -28,51 +33,46 @@ namespace CodeBase.Hero
 
         private void Update()
         {
+            var inputSigned = new Vector2(Mathf.Sign(_inputService.Axis.x), 0);
+            
             Vector3 movementVector = Vector3.zero;
 
-            if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
+            if (HasInput() && !_isStrafing)
             {
-                movementVector = _camera.transform.TransformDirection(_inputService.Axis);
-                movementVector.y = 0;
-                movementVector.Normalize();
-
-                transform.forward = movementVector;
+                _coroutineRunnerService.StartCoroutine(DoStrafe(inputSigned));
             }
-
-            movementVector += Physics.gravity;
-        
-            _characterController.Move(movementVector * movementSpeed * Time.deltaTime);
-        }
-        
-        public void UpdateProgress(PlayerProgress playerProgress)
-        {
-            playerProgress.WorldData.PositionOnLevel =
-                new PositionOnLevel(GetCurrentLevel(), transform.position.AsVector3Data());
         }
 
-        public void LoadProgress(PlayerProgress playerProgress)
+        private IEnumerator DoStrafe(Vector2 input)
         {
-            if (playerProgress.WorldData.PositionOnLevel.Level != GetCurrentLevel())
-                return;
+            _isStrafing = true;
 
-            Vector3Data savedPosition = playerProgress.WorldData.PositionOnLevel.Position;
+            var side = _camera.transform.TransformDirection(input);
             
-            if (savedPosition == null)
-                return;
+            var startPos = transform.position;
+            var destinationPoint = transform.position + side;
 
-            Warp(to: savedPosition);
+            float t = 0;
+            float animationTime = 1f;
+            
+            while (_isStrafing)
+            {
+                t += Time.deltaTime;
+                var newPos = Vector3.Lerp(startPos, destinationPoint, t / animationTime);
+                transform.position = newPos;
+
+                if (newPos == destinationPoint)
+                {
+                    _isStrafing = false;
+                }
+                
+                yield return null;
+            }
         }
 
-        private void Warp(Vector3Data to)
+        private bool HasInput()
         {
-            _characterController.enabled = false;
-            transform.position = to.AsUnityVector().AddY(_characterController.height);
-            _characterController.enabled = true;
-        }
-
-        private static string GetCurrentLevel()
-        {
-            return SceneManager.GetActiveScene().name;
+            return Mathf.Abs(_inputService.Axis.x) > Constants.Epsilon;
         }
     }
 }
