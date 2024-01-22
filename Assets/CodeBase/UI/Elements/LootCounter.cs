@@ -6,7 +6,7 @@ namespace CodeBase.UI.Elements
     public class LootCounter : MonoBehaviour
     {
         [SerializeField]
-        private TextMeshProUGUI _textMesh;
+        private TextMeshProUGUI _lootCounter;
 
         private WorldData _worldData;
     
@@ -23,7 +23,7 @@ namespace CodeBase.UI.Elements
 
         private void UpdateCounter()
         {
-            _textMesh.text = $"{_worldData.LootData.Collected}";
+            _lootCounter.text = $"{_worldData.LootData.Collected}";
         }
     }
 }

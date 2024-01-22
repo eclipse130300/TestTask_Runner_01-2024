@@ -59,9 +59,9 @@ namespace CodeBase.Infrastructure.Factory
         
         private GameObject InstantiateRegistered(string prefabPath)
         {
-            var hero = _assetProvider.Instantiate(prefabPath);
-            RegisterProgressWriters(fromGameObject: hero);
-            return hero;
+            var instantiatedPrefab = _assetProvider.Instantiate(prefabPath);
+            RegisterProgressWriters(fromGameObject: instantiatedPrefab);
+            return instantiatedPrefab;
         }
         
         private void RegisterProgressWriters(GameObject fromGameObject)
