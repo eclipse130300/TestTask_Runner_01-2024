@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public static class DataExtensions
+public static class Extensions
 {
     public static Vector3Data AsVector3Data(this Vector3 vector) => new Vector3Data(vector.x, vector.y, vector.z);
 
@@ -22,4 +22,14 @@ public static class DataExtensions
 
     public static string ToJson<T>(this T objectToConvert) =>
         JsonUtility.ToJson(objectToConvert);
+
+    public static float Remap(
+        this float value,
+        float start1,
+        float stop1,
+        float start2,
+        float stop2)
+    {
+        return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
+    }
 }

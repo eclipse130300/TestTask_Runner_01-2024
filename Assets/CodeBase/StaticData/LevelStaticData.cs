@@ -13,7 +13,7 @@ namespace CodeBase.StaticData
 
         [Space(10)]
         [Header("Generation settings")]
-        public float ChunkLengthZ = 50f;
+        public int ChunkLengthZ = 50;
         public float ChunkSideBorders = 1.5f;
         public int PreloadedChunks = 2;
         public float SafeRunZone = 30f;
