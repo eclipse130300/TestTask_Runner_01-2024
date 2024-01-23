@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpacingBetweenPaths: 3
   StrafeAnimationTime: 0.5
-  ChunkLengthZ: 30
+  ScrollSpeed: 5
+  ChunkLengthZ: 50
   ChunkSideBorders: 1.5
   PreloadedChunks: 2
-  PreloadedFirstChunkZOffset: 10
-  SafeRunZone: 30
+  SafeRunZone: 25
+  PerlinScale: 19.9

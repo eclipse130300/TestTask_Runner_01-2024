@@ -79,7 +79,7 @@ namespace CodeBase.Infrastructure.States
         }
 
         private void GenerateLevel() => 
-            _levelGeneratorService.PreloadLevel();
+            _levelGeneratorService.InitializeLevel();
 
         private GameObject InitHero()
         {

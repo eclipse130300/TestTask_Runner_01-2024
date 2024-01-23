@@ -9,13 +9,14 @@ namespace CodeBase.StaticData
         [Header("Common settings")]
         public float SpacingBetweenPaths = 3f;
         public float StrafeAnimationTime = 0.5f;
+        public float ScrollSpeed = 5f;
 
         [Space(10)]
         [Header("Generation settings")]
         public float ChunkLengthZ = 50f;
         public float ChunkSideBorders = 1.5f;
         public int PreloadedChunks = 2;
-        public float PreloadedFirstChunkZOffset = 10f;
         public float SafeRunZone = 30f;
+        public float PerlinScale = 20f;
     }
 }
