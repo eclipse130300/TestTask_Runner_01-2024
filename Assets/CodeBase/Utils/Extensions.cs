@@ -32,4 +32,11 @@ public static class Extensions
     {
         return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
     }
+
+    /// <summary>
+    /// Remaps value -1/1f to 0,1,2 index 
+    /// </summary>
+    /// <returns></returns>
+    public static int AsInteger02Index(this float value) => 
+        Mathf.RoundToInt(value + 1);
 }

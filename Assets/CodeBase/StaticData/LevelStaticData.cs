@@ -16,7 +16,7 @@ namespace CodeBase.StaticData
         public int ChunkLengthZ = 50;
         public float ChunkSideBorders = 1.5f;
         public int PreloadedChunks = 2;
-        public float SafeRunZone = 30f;
+        public int SafeRunZone = 30;
         public float PerlinScale = 20f;
     }
 }
