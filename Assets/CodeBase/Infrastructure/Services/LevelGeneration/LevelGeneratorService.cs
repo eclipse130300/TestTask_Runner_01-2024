@@ -74,7 +74,17 @@ public class LevelGeneratorService : ILevelGeneratorService
             go.transform.position = groundChunk.transform.position 
                                   + new Vector3(descetePathVal * staticData.SpacingBetweenPaths, 0, i);
             
-            chunk.FillRowData(descetePathVal, i);
+            chunk.FillRowPathData(descetePathVal, i);
+        }
+        chunk.InitializeObstacles();
+
+        foreach (var obstacle in chunk.Obstacles)
+        {
+            foreach (var obstaclePoint in obstacle.PointsCollection)
+            {
+                var test = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                test.transform.position = groundChunk.transform.position + obstaclePoint.LocalPosition;
+            }
         }
     }
 
