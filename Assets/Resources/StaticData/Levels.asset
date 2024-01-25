@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e378e1f3aa82417b83d10325d3cb657e, type: 3}
   m_Name: Levels
   m_EditorClassIdentifier: 
-  SpacingBetweenPaths: 3
+  LinesSpacingX: 3
+  LinesSpacingZ: 3
   StrafeAnimationTime: 0.5
   ScrollSpeed: 5
-  ChunkLengthZ: 50
+  ChunkRows: 50
   ChunkSideBorders: 1.5
   PreloadedChunks: 3
   SafeRunZone: 25
   PerlinScale: 0.23
+  ObstaclePercent: 0
+  DontSpawnObstaclesOnStartRowsAmount: 3

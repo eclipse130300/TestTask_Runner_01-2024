@@ -15,10 +15,13 @@ namespace CodeBase.StaticData
 
         [Space(10)]
         [Header("Generation settings")]
-        public int ChunkLengthZ = 50;
+        public int ChunkRows = 50;
         public float ChunkSideBorders = 1.5f;
         public int PreloadedChunks = 2;
         public int SafeRunZone = 30;
         public float PerlinScale = 20f;
+
+        public float ObstaclePercent = 0;
+        public int DontSpawnObstaclesOnStartRowsAmount = 3;
     }
 }

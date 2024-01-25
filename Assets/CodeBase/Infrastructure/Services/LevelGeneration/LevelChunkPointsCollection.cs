@@ -9,7 +9,4 @@ public class LevelChunkPointsCollection
     {
         PointsCollection = pointsCollection;
     }
-
-    public void Remove(ChunkSamplePoint item) => 
-        PointsCollection.Remove(item);
 }
