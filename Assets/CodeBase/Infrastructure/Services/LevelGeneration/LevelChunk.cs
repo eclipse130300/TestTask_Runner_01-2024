@@ -28,7 +28,7 @@ public class LevelChunk
             {
                 var id = new Vector2Int(x, y);
                 //-1 to 1
-                var localPos = new Vector3((x - 1) * config.SpacingBetweenPaths, 0, y);
+                var localPos = new Vector3((x - 1) * config.LinesSpacingX, 0, y);
                 var samplePoint = new ChunkSamplePoint(id, localPos);
 
                 Points[x, y] = samplePoint;
@@ -75,13 +75,22 @@ public class LevelChunk
                 samplePoint.AdjacentChunks.Add(adjacentRight);
             }
 
-            //next up (no need find next down, we start indexing from down)
+            //next up
             if (rowId + 1 < MaxRows)
             {
                 var adjacentUp = Points[xPos, rowId + 1];
                 if(adjacentUp == null)
                     continue;
                 samplePoint.AdjacentChunks.Add(adjacentUp);
+            }
+            
+            //next down
+            if (rowId - 1 >= 0)
+            {
+                var adjacentDown = Points[xPos, rowId - 1];
+                if(adjacentDown == null)
+                    continue;
+                samplePoint.AdjacentChunks.Add(adjacentDown);
             }
         }
     }
@@ -98,6 +107,41 @@ public class LevelChunk
                              .OrderByDescending(x => x.PointsCollection.Count)
                              .Take(halfAmount)
                              .ToList();
+
+        RemoveTurningObstaclePoints();
+    }
+
+    private void RemoveTurningObstaclePoints()
+    {
+        foreach (var obstacleCollection in Obstacles)
+        {
+            for (int i = obstacleCollection.PointsCollection.Count - 1; i >= 0; i--)
+            {
+                var point = obstacleCollection.PointsCollection[i];
+
+                // Flags to track the presence of path points in different directions
+                bool hasLeftOrRightPathPoint = false;
+                bool hasBottomPathPoint = false;
+
+                // Check each adjacent point to determine if it's a path point in specific directions
+                foreach (var adjacentPoint in point.AdjacentChunks)
+                {
+                    bool isPathPoint = adjacentPoint.SamplePointType == SamplePointType.Path;
+                    bool isLeftOrRight = adjacentPoint.Id.x == point.Id.x - 1 || adjacentPoint.Id.x == point.Id.x + 1;
+                    bool isBottomPoint = adjacentPoint.Id.y == point.Id.y - 1;
+
+                    // Update flags based on the presence of path points in different directions
+                    hasLeftOrRightPathPoint |= isLeftOrRight && isPathPoint;
+                    hasBottomPathPoint |= isBottomPoint && isPathPoint;
+                }
+
+                // Remove the current point if there are path points both to the left/right and at the bottom
+                if (hasLeftOrRightPathPoint && hasBottomPathPoint)
+                {
+                    obstacleCollection.PointsCollection.Remove(point);
+                }
+            }
+        }
     }
 
     private HashSet<LevelChunkPointsCollection> GetAllSideZonesOnPath()

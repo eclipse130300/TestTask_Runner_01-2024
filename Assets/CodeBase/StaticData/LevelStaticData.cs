@@ -7,7 +7,9 @@ namespace CodeBase.StaticData
     public class LevelStaticData : ScriptableObject
     {
         [Header("Common settings")]
-        public float SpacingBetweenPaths = 3f;
+        public float LinesSpacingX = 3f;
+        public float LinesSpacingZ = 3f;
+
         public float StrafeAnimationTime = 0.5f;
         public float ScrollSpeed = 5f;
 

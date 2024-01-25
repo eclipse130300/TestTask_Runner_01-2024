@@ -47,8 +47,9 @@ public class LevelGeneratorService : ILevelGeneratorService
 
     private void CreateChunk(LevelStaticData staticData, Vector3 chunkPosition)
     {
-        var chunkXSize = (staticData.SpacingBetweenPaths + staticData.ChunkSideBorders) * 2;
+        var chunkXSize = (staticData.LinesSpacingX + staticData.ChunkSideBorders) * 2;
         var maxRows = staticData.ChunkLengthZ;
+        var linesSpacing = staticData.LinesSpacingZ;
         
         var scale = new Vector3(chunkXSize, 1, maxRows);
         var groundChunk = _gameFactory.CreateGroundChunk(chunkPosition, _initialPoint.transform.forward, scale);
@@ -72,7 +73,7 @@ public class LevelGeneratorService : ILevelGeneratorService
             
             var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             go.transform.position = groundChunk.transform.position 
-                                  + new Vector3(descetePathVal * staticData.SpacingBetweenPaths, 0, i);
+                                  + new Vector3(descetePathVal * staticData.LinesSpacingX, 0, i);
             
             chunk.FillRowPathData(descetePathVal, i);
         }
@@ -84,6 +85,7 @@ public class LevelGeneratorService : ILevelGeneratorService
             {
                 var test = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 test.transform.position = groundChunk.transform.position + obstaclePoint.LocalPosition;
+                test.transform.localScale = new Vector3(3, 1, 1);
             }
         }
     }

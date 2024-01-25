@@ -53,13 +53,13 @@ namespace CodeBase.Hero
             var side = _camera.transform.TransformDirection(inputSigned);
             var levelData = _staticDataService.ForLevel();
 
-            var destinationPoint = transform.position + side * levelData.SpacingBetweenPaths;
+            var destinationPoint = transform.position + side * levelData.LinesSpacingX;
             return destinationPoint;
         }
 
         private bool CanStrafeTo(Vector3 destinationPoint)
         {
-            var maxUnits = _staticDataService.ForLevel().SpacingBetweenPaths;
+            var maxUnits = _staticDataService.ForLevel().LinesSpacingX;
 
             return !destinationPoint.VectorLengthIsGreaterThan(maxUnits);
         }

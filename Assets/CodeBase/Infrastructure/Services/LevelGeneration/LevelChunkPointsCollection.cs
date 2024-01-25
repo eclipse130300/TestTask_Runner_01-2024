@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 
+//actually might be any collection
 public class LevelChunkPointsCollection
 {
-    public readonly IReadOnlyCollection<ChunkSamplePoint> PointsCollection;
+    public readonly List<ChunkSamplePoint> PointsCollection;
 
     public LevelChunkPointsCollection(List<ChunkSamplePoint> pointsCollection)
     {
         PointsCollection = pointsCollection;
     }
+
+    public void Remove(ChunkSamplePoint item) => 
+        PointsCollection.Remove(item);
 }
