@@ -2,7 +2,7 @@
 
 namespace CodeBase.CameraLogic
 {
-    public class CameraFollow : MonoBehaviour
+    public class CameraStaticFollow : MonoBehaviour
     {
         [SerializeField]
         private Transform _following;
@@ -16,17 +16,23 @@ namespace CodeBase.CameraLogic
         [SerializeField]
         private float _offsetY;
 
+        private Vector3 _followStartPos;
+
         private void LateUpdate()
         {
             var rotation = Quaternion.Euler(_rotationAngleX, 0 ,0);
 
-            var position = rotation * new Vector3(0, 0, -_distance) + GetFollowingPointPosition();
+            var position = rotation * new Vector3(0, 0, -_distance) + _followStartPos;
 
             transform.rotation = rotation;
             transform.position = position;
         }
 
-        public void Follow(GameObject following) => _following = following.transform;
+        public void Follow(GameObject following)
+        {
+            _following = following.transform;
+            _followStartPos = GetFollowingPointPosition();
+        }
 
         private Vector3 GetFollowingPointPosition()
         {

@@ -2,16 +2,18 @@
 using System.Linq;
 using CodeBase.StaticData;
 using UnityEngine;
+using Random = System.Random;
 
 public class LevelChunk
 {
     public GameObject ViewGameObject { get; }
     public ChunkSamplePoint[,] Points { get; }
     public int MaxRows { get; }
-    
     public float ChunkUnitySizeZ { get; }
 
     public List<LevelChunkPointsCollection> Obstacles { get; private set; } = new();
+    
+    public List<ChunkSamplePoint> PowerUps { get; private set; } = new();
 
     private LevelStaticData _config;
 
@@ -110,6 +112,20 @@ public class LevelChunk
                              .ToList();
 
         RemoveObstaclesAroundPathPoints();
+    }
+
+    public void InitializePowerUpsData()
+    {
+        PowerUps = GetAllChunkSamplePointsInfo()
+                  .Where(x => x.SamplePointType == SamplePointType.Path)
+                  .OrderBy(_ => new Random().Next())
+                  .Take(_config.ChunkPowerUpsAmount)
+                  .Select(x =>
+                   {
+                       x.SamplePointType = SamplePointType.PowerUp;
+                       return x;
+                   })
+                  .ToList();
     }
 
     //just making game more casual to play, adding more room for player

@@ -23,5 +23,10 @@ namespace CodeBase.StaticData
 
         public float ObstaclePercent = 0;
         public int DontSpawnObstaclesOnStartRowsAmount = 3;
+
+        [Header("PowerUps")]
+        public int ChunkPowerUpsAmount = 2;
+
+        public List<string> PowerUpsPathsPool = new();
     }
 }

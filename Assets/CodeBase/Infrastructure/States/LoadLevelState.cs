@@ -94,6 +94,6 @@ namespace CodeBase.Infrastructure.States
         }
 
         private void CameraFollow(GameObject hero) =>
-            Camera.main.GetComponent<CameraFollow>().Follow(hero);
+            Camera.main.GetComponent<CameraStaticFollow>().Follow(hero);
     }
 }

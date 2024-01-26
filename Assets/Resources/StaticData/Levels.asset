@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LinesSpacingX: 3
   LinesSpacingZ: 3
-  StrafeAnimationTime: 0.5
-  ScrollSpeed: 40
+  StrafeAnimationTime: 0.2
+  ScrollSpeed: 16
   ChunkRows: 30
   ChunkSideBorders: 1.5
   PreloadedChunks: 3
@@ -23,3 +23,8 @@ MonoBehaviour:
   PerlinScale: 0.23
   ObstaclePercent: 0
   DontSpawnObstaclesOnStartRowsAmount: 3
+  ChunkPowerUpsAmount: 1
+  PowerUpsPathsPool:
+  - Level/PowerUps/SpeedUpPowerUp
+  - Level/PowerUps/SpeedDownPowerUp
+  - Level/PowerUps/FlyPowerUp

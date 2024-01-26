@@ -16,7 +16,9 @@ namespace CodeBase.Hero
         private ICoroutineRunnerService _coroutineRunnerService;
         private IStaticDataService _staticDataService;
         private Camera _camera;
+        
         private bool _isStrafing;
+        private bool _isHoldingSwipe;
 
         private void Awake()
         {
@@ -37,11 +39,13 @@ namespace CodeBase.Hero
             var destinationPoint = CalculateDestinationPoint(inputSigned);
             var strafeTime = _staticDataService.ForLevel().StrafeAnimationTime;
 
-            if (HasInput() && CanStrafeTo(destinationPoint) && !_isStrafing)
+            if (!_isHoldingSwipe && HasInput() && CanStrafeTo(destinationPoint) && !_isStrafing)
             {
                 _isStrafing = true;
                 _coroutineRunnerService.StartCoroutine(DoStrafe(destinationPoint, strafeTime));
             }
+            
+            _isHoldingSwipe = SimpleInput.GetMouseButton(0);
         }
 
         private Vector3 CalculateDestinationPoint(Vector2 inputSigned)
@@ -62,8 +66,6 @@ namespace CodeBase.Hero
 
         private IEnumerator DoStrafe(Vector3 destinationPoint, float strafeTime)
         {
-            Debug.Log("Started strafing");
-            
             var startPos = transform.position;
             
             float t = 0;
@@ -73,11 +75,6 @@ namespace CodeBase.Hero
                 t += Time.deltaTime;
                 var newPos = Vector3.Lerp(startPos, destinationPoint, t / strafeTime);
 
-                if ((transform.position - newPos).magnitude > 1)
-                {
-                    Debug.Log("OOOOPS");
-                }
-                
                 transform.position = newPos;
 
                 yield return new WaitForEndOfFrame();

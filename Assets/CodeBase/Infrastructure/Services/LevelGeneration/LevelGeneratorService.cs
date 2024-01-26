@@ -13,8 +13,7 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
 
     private readonly IStaticDataService _staticDataService;
     private readonly IGameFactory _gameFactory;
-
-    private Queue<LevelChunk> _generatedChunks = new ();
+    private readonly Queue<LevelChunk> _generatedChunks = new ();
 
     private Vector3 _firstChunkSequencePosition;
     private Vector3 _lastChunkSequencePosition;
@@ -50,18 +49,36 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
     }
     private void CreateChunk(LevelStaticData staticData, Vector3 chunkPosition)
     {
-        var maxRows = staticData.ChunkRows;
         var chunkXSize = (staticData.LinesSpacingX + staticData.ChunkSideBorders) * 2;
-        var chunkZSize = staticData.LinesSpacingZ * maxRows;
-        var linesSpacing = staticData.LinesSpacingZ;
-        
+        var chunkZSize = staticData.LinesSpacingZ * staticData.ChunkRows;
         var scale = new Vector3(chunkXSize, 1, chunkZSize);
         var groundChunk = _gameFactory.CreateGroundChunk(chunkPosition, Vector3.forward, scale);
+        var chunkData = new LevelChunk(staticData, groundChunk);
         
-        var chunk = new LevelChunk(staticData, groundChunk);
-        _generatedChunks.Enqueue(chunk);
+        _generatedChunks.Enqueue(chunkData);
+        
+        GenerateChunkPlayerPath(staticData, chunkData);
+        
+        chunkData.InitializeObstaclesData();
+        SpawnObstacles(chunkData, groundChunk.transform);
 
-        for (int i = 0; i < maxRows; i++)
+        chunkData.InitializePowerUpsData();
+        SpawnPowerUps(chunkData, groundChunk.transform);
+    }
+
+    private void SpawnPowerUps(LevelChunk chunkData, Transform chunkTransform)
+    {
+        foreach (var powerUpPoint in chunkData.PowerUps)
+        {
+            _gameFactory.CreatePowerUp(chunkTransform, powerUpPoint.LocalPosition);
+        }        
+    }
+
+    private void GenerateChunkPlayerPath(LevelStaticData staticData, LevelChunk chunk)
+    {
+        var maxRows = staticData.ChunkRows;
+
+        for (int i = 0; i < staticData.ChunkRows; i++)
         {
             _currentRow++;
 
@@ -75,18 +92,11 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
 
             var randomPathVal01 = Mathf.PerlinNoise((_currentRow + _randomSeedPerlinOffset) * perlinScale, 0);
             var discretePathVal = Redistribute(randomPathVal01);
-            
-            /*var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            go.transform.position = groundChunk.transform.position 
-                                  + new Vector3(discretePathVal * staticData.LinesSpacingX, 0, i * staticData.LinesSpacingZ);*/
-            
+
             chunk.FillRowPathData(discretePathVal, i);
         }
-
-        chunk.InitializeObstaclesData();
-        SpawnObstacles(chunk, groundChunk.transform);
     }
-    
+
     private void SpawnObstacles(LevelChunk chunkData, Transform chunkTransform)
     {
         foreach (var obstacle in chunkData.Obstacles)

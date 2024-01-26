@@ -14,5 +14,6 @@ namespace CodeBase.Infrastructure.Factory
         void CleanUp();
         GameObject CreateGroundChunk(Vector3 at, Vector3 forward, Vector3 scale);
         GameObject CreateObstacle(Transform parent, Vector3 localPos);
+        GameObject CreatePowerUp(Transform parent, Vector3 localPos);
     }
 }

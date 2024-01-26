@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using CodeBase.Chunks;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
@@ -74,6 +76,24 @@ namespace CodeBase.Infrastructure.Factory
             obstacle.transform.localScale = new Vector3(levelData.LinesSpacingX, levelData.LinesSpacingX, levelData.LinesSpacingZ);
             
             return obstacle;
+        }
+
+        //as we do not care of power up type, just use random
+        public GameObject CreatePowerUp(Transform parent, Vector3 localPos)
+        {
+            var randomPowerUpPath = _staticData
+                                   .ForLevel()
+                                   .PowerUpsPathsPool
+                                   .OrderBy(_ => new System.Random().Next())
+                                   .Take(1)
+                                   .SingleOrDefault();
+
+            var powerUp = _assetProvider.Instantiate(randomPowerUpPath);
+            
+            powerUp.transform.SetParent(parent);
+            powerUp.transform.localPosition = localPos;
+            
+            return powerUp;
         }
 
         public void CleanUp()
