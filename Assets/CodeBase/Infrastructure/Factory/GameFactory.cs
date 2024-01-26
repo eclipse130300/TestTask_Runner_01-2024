@@ -62,6 +62,19 @@ namespace CodeBase.Infrastructure.Factory
 
             return chunk;
         }
+        
+        public GameObject CreateObstacle(Transform parent, Vector3 localPos)
+        {
+            var obstacle = _assetProvider.Instantiate(AssetPath.OBSTACLE_PATH);
+            
+            var levelData = _staticData.ForLevel();
+            
+            obstacle.transform.SetParent(parent);
+            obstacle.transform.localPosition = localPos;
+            obstacle.transform.localScale = new Vector3(levelData.LinesSpacingX, levelData.LinesSpacingX, levelData.LinesSpacingZ);
+            
+            return obstacle;
+        }
 
         public void CleanUp()
         {

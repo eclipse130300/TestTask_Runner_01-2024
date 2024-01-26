@@ -83,17 +83,16 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
             chunk.FillRowPathData(discretePathVal, i);
         }
 
-        chunk.InitializeObstacles();
-
-        foreach (var obstacle in chunk.Obstacles)
+        chunk.InitializeObstaclesData();
+        SpawnObstacles(chunk, groundChunk.transform);
+    }
+    
+    private void SpawnObstacles(LevelChunk chunkData, Transform chunkTransform)
+    {
+        foreach (var obstacle in chunkData.Obstacles)
         {
             foreach (var obstaclePoint in obstacle.PointsCollection)
-            {
-                var test = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                test.transform.SetParent(groundChunk.transform);
-                test.transform.localPosition = obstaclePoint.LocalPosition;
-                test.transform.localScale = new Vector3(staticData.LinesSpacingX, 1, staticData.LinesSpacingZ);
-            }
+                _gameFactory.CreateObstacle(chunkTransform, obstaclePoint.LocalPosition);
         }
     }
 

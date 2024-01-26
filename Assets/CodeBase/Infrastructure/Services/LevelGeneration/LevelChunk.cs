@@ -99,7 +99,7 @@ public class LevelChunk
     /// <summary>
     /// Use BFS search for detecting side obstacles
     /// </summary>
-    public void InitializeObstacles()
+    public void InitializeObstaclesData()
     {
         var sideZones = GetAllSideZonesOnPath();
         var halfAmount = sideZones.Count / 2;
