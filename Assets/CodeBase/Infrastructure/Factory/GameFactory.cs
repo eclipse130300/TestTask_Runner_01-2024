@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CodeBase.Chunks;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.UI.Elements;
@@ -19,7 +20,11 @@ namespace CodeBase.Infrastructure.Factory
 
         public List<ISavedProgressWriter> WritersList { get; } = new List<ISavedProgressWriter>();
 
-        public GameFactory(IWindowService windowService, IAssetProvider assetProvider, IStaticDataService staticDataService, IPersistentProgressService persistentProgressService)
+        public GameFactory(
+            IWindowService windowService,
+            IAssetProvider assetProvider,
+            IStaticDataService staticDataService,
+            IPersistentProgressService persistentProgressService)
         {
             _windowService = windowService;
             _assetProvider = assetProvider;
@@ -49,7 +54,11 @@ namespace CodeBase.Infrastructure.Factory
             var chunk = _assetProvider.Instantiate(AssetPath.GROUND_CHUNK_PATH);
             chunk.transform.position = at;
             chunk.transform.forward = forward;
-            chunk.transform.localScale = scale;
+
+            var chunkController = chunk.GetComponent<ChunkController>();
+            //we need to add obstacles under this transform, so lets not mess up with scale of root
+            chunkController.ChunkVisualTransform.localScale = scale;
+            chunkController.Construct(_staticData);
 
             return chunk;
         }

@@ -5,21 +5,24 @@ using UnityEngine;
 
 public class LevelChunk
 {
-    public GameObject ChunkGameObject { get; }
+    public GameObject ViewGameObject { get; }
     public ChunkSamplePoint[,] Points { get; }
     public int MaxRows { get; }
+    
+    public float ChunkUnitySizeZ { get; }
 
     public List<LevelChunkPointsCollection> Obstacles { get; private set; } = new();
 
     private LevelStaticData _config;
 
-    public LevelChunk(LevelStaticData config, GameObject chunkGameObject, int maxRows)
+    public LevelChunk(LevelStaticData config, GameObject chunkGameObject)
     {
         _config = config;
-        ChunkGameObject = chunkGameObject;
-        MaxRows = maxRows;
-        Points = new ChunkSamplePoint[3, maxRows];
-        for (int y = 0; y < maxRows; y++)
+        ViewGameObject = chunkGameObject;
+        MaxRows = config.ChunkRows;
+        Points = new ChunkSamplePoint[3, MaxRows];
+        ChunkUnitySizeZ = MaxRows * config.LinesSpacingZ;
+        for (int y = 0; y < MaxRows; y++)
         {
             //we have 3 lines only?
             for (int x = 0; x < 3; x++)

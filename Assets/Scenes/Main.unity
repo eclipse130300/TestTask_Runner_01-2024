@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 5790377365061819028, guid: 72a6e6c01df505f45a7be10a8bc5dcd2,
         type: 3}
       propertyPath: m_Name
-      value: StartChunk
+      value: StartFakeChunk
       objectReference: {fileID: 0}
     - target: {fileID: 5790377365061819029, guid: 72a6e6c01df505f45a7be10a8bc5dcd2,
         type: 3}
@@ -200,7 +200,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 652394358513310335, guid: 72a6e6c01df505f45a7be10a8bc5dcd2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 72a6e6c01df505f45a7be10a8bc5dcd2, type: 3}
 --- !u!1 &705507993
 GameObject:
@@ -447,6 +448,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1441799030}
+  - component: {fileID: 1441799031}
   m_Layer: 0
   m_Name: InitialPoint
   m_TagString: InitialPoint
@@ -469,6 +471,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1441799031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441799029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902d15e90744441fb31953a84304183f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2053031218513841602
 PrefabInstance:
   m_ObjectHideFlags: 0

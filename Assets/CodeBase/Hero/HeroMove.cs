@@ -18,10 +18,6 @@ namespace CodeBase.Hero
         private Camera _camera;
         private bool _isStrafing;
 
-        private Vector3 _initialPoint;
-
-        private Coroutine _strafingCoroutine = null;
-
         private void Awake()
         {
             _inputService = AllServices.Container.Single<IInputService>();
