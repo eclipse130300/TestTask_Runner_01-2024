@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public interface ILevelGeneratorService : IService
 {
     public void InitializeLevel();
-    float ChunkUnitySizeZ { get; }
-    Vector3 FirstChunkSequencePosition { get; }
+    public Queue<LevelChunk> GeneratedChunks { get; }
 }

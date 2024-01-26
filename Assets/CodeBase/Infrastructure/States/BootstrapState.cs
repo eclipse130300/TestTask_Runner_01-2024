@@ -60,6 +60,10 @@ namespace CodeBase.Infrastructure.States
 
             _services.RegisterSingle<ILevelGeneratorService>(new LevelGeneratorService(_services.Single<IStaticDataService>(),
                 _services.Single<IGameFactory>()));
+
+            var levelRunner = new LevelRunnerService(_services.Single<ILevelGeneratorService>(), _services.Single<IStaticDataService>());
+            _tickableManager.Register(levelRunner);
+            _services.RegisterSingle<ILevelRunnerService>(levelRunner);
         }
 
         private void RegisterStaticData()

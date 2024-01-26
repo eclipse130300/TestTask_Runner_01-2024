@@ -4,45 +4,20 @@ using UnityEngine;
 
 namespace CodeBase.Chunks
 {
-    public class ChunkController : MonoBehaviour, IGameLoopStartedHandler, IGameLoopFinishedHandler
+    public class ChunkController : MonoBehaviour
     {
         public Transform ChunkVisualTransform => _chunkVisualTransform;
 
         [SerializeField]
         private Transform _chunkVisualTransform;
 
-        private IStaticDataService _staticDataService;
-
         private float chunkUnitySizeZ;
-        private bool _canMove;
+        //private bool _canMove;
 
         public void Construct(IStaticDataService staticDataService)
         {
-            _staticDataService = staticDataService;
-
             var levelData = staticDataService.ForLevel();
             chunkUnitySizeZ = levelData.ChunkRows * levelData.LinesSpacingZ;
-        }
-
-        private void Awake() => 
-            EventBus.Subscribe(this);
-
-        private void OnDestroy() => 
-            EventBus.Unsubscribe(this);
-
-        public void OnGameLoopStated() => 
-            _canMove = true;
-
-        public void OnGameLoopFinished() => 
-            _canMove = false;
-
-        private void Update()
-        {
-            if (_canMove)
-            {
-                var speed = _staticDataService.ForLevel().ScrollSpeed;
-                transform.position += Vector3.back * speed * Time.deltaTime;
-            }
         }
 
         private void LateUpdate()

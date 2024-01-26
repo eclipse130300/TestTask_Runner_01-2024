@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CodeBase.Infrastructure;
 using UnityEngine;
 
@@ -11,13 +12,6 @@ public class TickableManager : MonoBehaviour, ICoroutineRunnerService
         DontDestroyOnLoad(this);
     }
 
-    public T CreateTickableAndRegister<T>() where T : ITickable, new()
-    {
-        T tickableObject = new T();
-        Register(tickableObject);
-        return tickableObject;
-    }
-
     public void UnRegister(ITickable tickable)
     {
         if (tickables.Contains(tickable))
@@ -26,8 +20,16 @@ public class TickableManager : MonoBehaviour, ICoroutineRunnerService
         }
     }
 
-    private void Register(ITickable tickable)
+    public void Register(ITickable tickable)
     {
         tickables.Add(tickable);    
+    }
+
+    private void Update()
+    {
+        foreach (var tickable in tickables)
+        {
+            tickable.Tick(Time.deltaTime);
+        }
     }
 }

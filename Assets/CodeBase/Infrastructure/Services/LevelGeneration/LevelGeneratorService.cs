@@ -9,13 +9,12 @@ using Random = UnityEngine.Random;
 
 public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloadHandler, IDisposable
 {
-    public Vector3 FirstChunkSequencePosition => _firstChunkSequencePosition;
-    public float ChunkUnitySizeZ => chunkUnitySizeZ;
+    public Queue<LevelChunk> GeneratedChunks => _generatedChunks;
 
     private readonly IStaticDataService _staticDataService;
     private readonly IGameFactory _gameFactory;
 
-    private Queue<LevelChunk> _currentChunks = new ();
+    private Queue<LevelChunk> _generatedChunks = new ();
 
     private Vector3 _firstChunkSequencePosition;
     private Vector3 _lastChunkSequencePosition;
@@ -39,7 +38,7 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
         _randomSeedPerlinOffset = Random.Range(-100f, 100f);
         
         _firstChunkSequencePosition = Vector3.zero;
-        _lastChunkSequencePosition = _firstChunkSequencePosition + Vector3.forward * levelData.ChunkRows * (levelData.PreloadedChunks - 1);
+        _lastChunkSequencePosition = _firstChunkSequencePosition + Vector3.forward * levelData.ChunkRows * levelData.LinesSpacingZ * (levelData.PreloadedChunks - 1);
 
         var currentPos = _firstChunkSequencePosition;
         
@@ -49,7 +48,6 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
             currentPos += Vector3.forward * levelData.ChunkRows * levelData.LinesSpacingZ;
         }
     }
-
     private void CreateChunk(LevelStaticData staticData, Vector3 chunkPosition)
     {
         var maxRows = staticData.ChunkRows;
@@ -61,7 +59,7 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
         var groundChunk = _gameFactory.CreateGroundChunk(chunkPosition, Vector3.forward, scale);
         
         var chunk = new LevelChunk(staticData, groundChunk);
-        _currentChunks.Enqueue(chunk);
+        _generatedChunks.Enqueue(chunk);
 
         for (int i = 0; i < maxRows; i++)
         {
@@ -78,13 +76,13 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
             var randomPathVal01 = Mathf.PerlinNoise((_currentRow + _randomSeedPerlinOffset) * perlinScale, 0);
             var discretePathVal = Redistribute(randomPathVal01);
             
-            var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            /*var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             go.transform.position = groundChunk.transform.position 
-                                  + new Vector3(discretePathVal * staticData.LinesSpacingX, 0, i * staticData.LinesSpacingZ);
+                                  + new Vector3(discretePathVal * staticData.LinesSpacingX, 0, i * staticData.LinesSpacingZ);*/
             
             chunk.FillRowPathData(discretePathVal, i);
         }
-        
+
         chunk.InitializeObstacles();
 
         foreach (var obstacle in chunk.Obstacles)
@@ -118,11 +116,15 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
     public void OnChunkReadyForUnload(float overshootOffset)
     {
         //unload first chunk
-        var firstChunk = _currentChunks.Dequeue();
+        var firstChunk = _generatedChunks.Dequeue();
         GameObject.Destroy(firstChunk.ViewGameObject);
         
         //create new chunk
-        CreateChunk(_staticDataService.ForLevel(), _lastChunkSequencePosition);
+        var overshotPosition = new Vector3(_lastChunkSequencePosition.x,
+            _lastChunkSequencePosition.y,
+            _lastChunkSequencePosition.z + overshootOffset);
+        
+        CreateChunk(_staticDataService.ForLevel(), overshotPosition);
     }
 
     public void Dispose()
