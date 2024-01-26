@@ -28,5 +28,10 @@ namespace CodeBase.StaticData
         public int ChunkPowerUpsAmount = 2;
 
         public List<string> PowerUpsPathsPool = new();
+
+        public float PowerUpDuration = 10f;
+
+        public float SpeedUpModifier = 2f;
+        public float SpeedDownModifier = 3f;
     }
 }

@@ -1,25 +1,20 @@
+using System;
 using System.Collections;
 using CodeBase.Infrastructure;
-using CodeBase.Infrastructure.CollisionDetection;
 using CodeBase.Services.Input;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace CodeBase.Hero
 {
-    public class HeroMove : MonoBehaviour
+    public class PlayerMove : MonoBehaviour
     {
-        [SerializeField]
-        private CollisionDetector _collisionDetector;
-
         private IInputService _inputService;
         private ICoroutineRunnerService _coroutineRunnerService;
         private IStaticDataService _staticDataService;
         private Camera _camera;
         
         private bool _isStrafing;
-        private bool _isHoldingSwipe;
+        //should be handled in InputService, but as it is external module
 
         private void Awake()
         {
@@ -28,33 +23,24 @@ namespace CodeBase.Hero
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
         }
 
-        private void Start()
-        {
+        private void Start() => 
             _camera = Camera.main;
-
-            _collisionDetector.Activate();
-            _collisionDetector.OnTriggerEnterDetected += Detected;
-        }
-
-        private void Detected(Collider othet)
-        {
-            Debug.Log("DETECTED TARGET COLLISION");
-        }
 
         private void Update()
         {
-            var inputSigned = new Vector2(Mathf.Sign(_inputService.Axis.x), 0);
+            var inputSigned = new Vector2(Math.Sign(_inputService.Axis.x), 0);
+            
+            if(inputSigned == Vector2.zero)
+                return;
             
             var destinationPoint = CalculateDestinationPoint(inputSigned);
             var strafeTime = _staticDataService.ForLevel().StrafeAnimationTime;
 
-            if (!_isHoldingSwipe && HasInput() && CanStrafeTo(destinationPoint) && !_isStrafing)
+            if (CanStrafeTo(destinationPoint) && !_isStrafing)
             {
                 _isStrafing = true;
-                _coroutineRunnerService.StartCoroutine(DoStrafe(destinationPoint, strafeTime));
+                _coroutineRunnerService.StartCoroutine(DoStrafe(destinationPoint.x, strafeTime));
             }
-            
-            _isHoldingSwipe = SimpleInput.GetMouseButton(0);
         }
 
         private Vector3 CalculateDestinationPoint(Vector2 inputSigned)
@@ -73,7 +59,7 @@ namespace CodeBase.Hero
             return !destinationPoint.VectorLengthIsGreaterThan(maxUnits);
         }
 
-        private IEnumerator DoStrafe(Vector3 destinationPoint, float strafeTime)
+        private IEnumerator DoStrafe(float targetX, float strafeTime)
         {
             var startPos = transform.position;
             
@@ -82,15 +68,18 @@ namespace CodeBase.Hero
             while (_isStrafing)
             {
                 t += Time.deltaTime;
-                var newPos = Vector3.Lerp(startPos, destinationPoint, t / strafeTime);
+                var currentPosition = transform.position;
+                var newPosX = Mathf.Lerp(startPos.x, targetX, t / strafeTime);
 
-                transform.position = newPos;
+                transform.position = new Vector3(newPosX, currentPosition.y, currentPosition.z);
 
                 yield return new WaitForEndOfFrame();
                 
-                if (newPos == destinationPoint)
+                if (Mathf.Approximately(newPosX, targetX))
                 {
                     _isStrafing = false;
+                    //in case of rounding error
+                    transform.position = new Vector3(targetX, currentPosition.y, currentPosition.z);
                 }
             }
         }

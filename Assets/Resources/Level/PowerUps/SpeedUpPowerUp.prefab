@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4308664291883400288}
   - component: {fileID: 8899229962986842160}
   - component: {fileID: -5243925112390077554}
+  - component: {fileID: 5261589687804192859}
+  - component: {fileID: 918590656338307673}
   m_Layer: 3
   m_Name: SpeedUpPowerUp
   m_TagString: Untagged
@@ -63,6 +65,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5261589687804192859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765851607965801369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee98dd96d4cf4f36ab90a03fd34f5969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &918590656338307673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765851607965801369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 507fa212c08543ffa0495882d514bd38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5944137225627247317
 GameObject:
   m_ObjectHideFlags: 0

@@ -171,7 +171,7 @@ MonoBehaviour:
     m_key: Horizontal
     value: 0
   invertHorizontal: 0
-  deltaTreshold: 3
+  deltaTreshold: 6
 --- !u!1 &4015483008730300654
 GameObject:
   m_ObjectHideFlags: 0

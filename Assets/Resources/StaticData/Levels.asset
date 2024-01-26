@@ -28,3 +28,6 @@ MonoBehaviour:
   - Level/PowerUps/SpeedUpPowerUp
   - Level/PowerUps/SpeedDownPowerUp
   - Level/PowerUps/FlyPowerUp
+  PowerUpDuration: 10
+  SpeedUpModifier: 2
+  SpeedDownModifier: 3

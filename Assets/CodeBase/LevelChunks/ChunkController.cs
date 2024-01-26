@@ -12,7 +12,6 @@ namespace CodeBase.Chunks
         private Transform _chunkVisualTransform;
 
         private float chunkUnitySizeZ;
-        //private bool _canMove;
 
         public void Construct(IStaticDataService staticDataService)
         {
@@ -24,7 +23,7 @@ namespace CodeBase.Chunks
         {
             var endChunkPoint = transform.position + Vector3.forward * chunkUnitySizeZ;
             
-            //as start point on Vector3.Zero
+            //as a start point is on Vector3.Zero
             if (endChunkPoint.z <= 0)
                 EventBus.RaiseEvent<IChunkReadyForUnloadHandler>(h => h.OnChunkReadyForUnload(endChunkPoint.z));
         }

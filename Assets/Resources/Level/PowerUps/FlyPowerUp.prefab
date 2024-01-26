@@ -94,6 +94,8 @@ GameObject:
   - component: {fileID: 5057113556440542204}
   - component: {fileID: 5281215181314999958}
   - component: {fileID: 8850789281309018586}
+  - component: {fileID: 1078045836951584245}
+  - component: {fileID: 703941699364569770}
   m_Layer: 3
   m_Name: FlyPowerUp
   m_TagString: Untagged
@@ -146,3 +148,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1078045836951584245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4403844972848560753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee98dd96d4cf4f36ab90a03fd34f5969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &703941699364569770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4403844972848560753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 507fa212c08543ffa0495882d514bd38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

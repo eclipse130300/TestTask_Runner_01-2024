@@ -8,12 +8,12 @@ public class LevelRunnerService : ILevelRunnerService, ITickable, IGameLoopStart
     private readonly ILevelGeneratorService _levelGeneratorService;
     
     private bool _isRunning;
-    private float _runningSpeed;
+    private float _currentSpeed;
 
     public LevelRunnerService(ILevelGeneratorService levelGeneratorService, IStaticDataService staticDataService)
     {
         _levelGeneratorService = levelGeneratorService;
-        _runningSpeed = staticDataService.ForLevel().ScrollSpeed;
+        _currentSpeed = staticDataService.ForLevel().ScrollSpeed;
         
         EventBus.Subscribe(this);
     }
@@ -31,8 +31,14 @@ public class LevelRunnerService : ILevelRunnerService, ITickable, IGameLoopStart
 
         foreach (var generatedChunk in _levelGeneratorService.GeneratedChunks)
         {
-            generatedChunk.ViewGameObject.transform.position += Vector3.back * _runningSpeed * deltaTime;
+            generatedChunk.ViewGameObject.transform.position += Vector3.back * _currentSpeed * deltaTime;
         }
+    }
+
+    public void ModifyCurrentSpeed(float delta)
+    {
+        //Debug.Log($"Modified current from {_currentSpeed} for {delta}");
+        _currentSpeed += delta;
     }
 
     public void Dispose()

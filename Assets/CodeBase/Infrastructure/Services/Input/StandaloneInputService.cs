@@ -4,21 +4,33 @@ namespace CodeBase.Services.Input
 {
   public class StandaloneInputService : InputService
   {
-    public override Vector2 Axis
+    private bool _hasSentInput;
+    public override Vector2 Axis => GetInputIfTouchedOnce();
+
+    private Vector2 GetInputIfTouchedOnce()
     {
-      get
+      var isTouching = UnityEngine.Input.anyKeyDown || SimpleInput.GetMouseButton(0);
+      Vector2 currentInput = SimpleInputAxis();
+
+      if (currentInput == Vector2.zero)
       {
-        Vector2 axis = SimpleInputAxis();
-
-        if (axis == Vector2.zero)
-        {
-          axis = UnityAxis();
-        }
-
-        return axis;
+        currentInput = UnityAxis();
       }
-    }
 
+      if (isTouching && currentInput.magnitude > 0 && !_hasSentInput)
+      {
+        _hasSentInput = true;
+        return currentInput;
+      }
+
+      if (!isTouching)
+      {
+        _hasSentInput = false;
+      }
+
+      return Vector2.zero;
+    }
+    
     private static Vector2 UnityAxis()
     {
       return new Vector2(UnityEngine.Input.GetAxis(Horizontal), UnityEngine.Input.GetAxis(Vertical));
