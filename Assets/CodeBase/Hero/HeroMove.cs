@@ -1,5 +1,6 @@
 using System.Collections;
 using CodeBase.Infrastructure;
+using CodeBase.Infrastructure.CollisionDetection;
 using CodeBase.Services.Input;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace CodeBase.Hero
     public class HeroMove : MonoBehaviour
     {
         [SerializeField]
-        private CharacterController _characterController;
+        private CollisionDetector _collisionDetector;
 
         private IInputService _inputService;
         private ICoroutineRunnerService _coroutineRunnerService;
@@ -30,6 +31,14 @@ namespace CodeBase.Hero
         private void Start()
         {
             _camera = Camera.main;
+
+            _collisionDetector.Activate();
+            _collisionDetector.OnTriggerEnterDetected += Detected;
+        }
+
+        private void Detected(Collider othet)
+        {
+            Debug.Log("DETECTED TARGET COLLISION");
         }
 
         private void Update()
