@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2501938153759114041}
   - component: {fileID: 9038710177982268848}
   - component: {fileID: 4628262463132189572}
+  - component: {fileID: 2510117858582953350}
   m_Layer: 0
   m_Name: hero
   m_TagString: Untagged
@@ -108,6 +109,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collisionDetector: {fileID: 2109388871052634504}
+--- !u!114 &2510117858582953350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749113652503796171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5eefb7f0dc046d4af88b8d10ad5654d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerInteractor: {fileID: 4628262463132189572}
 --- !u!1001 &1749113653951205922
 PrefabInstance:
   m_ObjectHideFlags: 0

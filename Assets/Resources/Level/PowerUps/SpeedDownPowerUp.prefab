@@ -94,8 +94,8 @@ GameObject:
   - component: {fileID: 5934543955081601566}
   - component: {fileID: 456736368011087451}
   - component: {fileID: 6638000568022241895}
-  - component: {fileID: -4244445376764224949}
   - component: {fileID: 2720995458432232737}
+  - component: {fileID: 6713347254968399203}
   m_Layer: 3
   m_Name: SpeedDownPowerUp
   m_TagString: Untagged
@@ -148,18 +148,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-4244445376764224949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3760347388098280507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee98dd96d4cf4f36ab90a03fd34f5969, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2720995458432232737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,5 +158,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 507fa212c08543ffa0495882d514bd38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6713347254968399203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3760347388098280507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a39036c8a30e4d1fa40da7401a367b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

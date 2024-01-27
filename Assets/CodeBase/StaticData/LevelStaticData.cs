@@ -33,5 +33,8 @@ namespace CodeBase.StaticData
 
         public float SpeedUpModifier = 2f;
         public float SpeedDownModifier = 3f;
+
+        public float FlyingHeight = 3f;
+        public float TakeOffTime = 2f;
     }
 }

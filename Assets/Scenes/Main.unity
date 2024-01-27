@@ -553,12 +553,12 @@ PrefabInstance:
     - target: {fileID: 2053031219199156407, guid: 394a7011e4cdbb1469502d04d6c7fda5,
         type: 3}
       propertyPath: _offsetY
-      value: 8
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 2053031219199156407, guid: 394a7011e4cdbb1469502d04d6c7fda5,
         type: 3}
       propertyPath: _distance
-      value: 15
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 2053031219199156407, guid: 394a7011e4cdbb1469502d04d6c7fda5,
         type: 3}
@@ -568,7 +568,7 @@ PrefabInstance:
     - target: {fileID: 2053031219199156407, guid: 394a7011e4cdbb1469502d04d6c7fda5,
         type: 3}
       propertyPath: _rotationAngleX
-      value: 30
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 394a7011e4cdbb1469502d04d6c7fda5, type: 3}

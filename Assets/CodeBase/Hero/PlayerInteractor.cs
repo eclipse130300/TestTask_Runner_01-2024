@@ -6,10 +6,10 @@ public class PlayerInteractor : MonoBehaviour
     [SerializeField]
     private CollisionDetector _collisionDetector;
 
-    private void Awake() => 
+    private void OnEnable() => 
         _collisionDetector.OnTriggerEnterDetected += TriggerDetected;
 
-    private void OnDestroy() => 
+    private void OnDisable() => 
         _collisionDetector.OnTriggerEnterDetected -= TriggerDetected;
 
     private void TriggerDetected(Collider other)

@@ -3,7 +3,7 @@ using EventBusSystem;
 using Events;
 using UnityEngine;
 
-public class ObstacleInteractable : MonoBehaviour, IInteractable
+public class Obstacle : MonoBehaviour, IInteractable
 {
     public void Interact(GameObject interactionInvoker)
     {

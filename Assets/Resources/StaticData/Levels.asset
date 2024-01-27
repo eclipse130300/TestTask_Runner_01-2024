@@ -30,4 +30,6 @@ MonoBehaviour:
   - Level/PowerUps/FlyPowerUp
   PowerUpDuration: 10
   SpeedUpModifier: 2
-  SpeedDownModifier: 3
+  SpeedDownModifier: -3
+  FlyingHeight: 3
+  TakeOffTime: 2

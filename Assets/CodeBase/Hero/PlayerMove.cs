@@ -36,7 +36,7 @@ namespace CodeBase.Hero
             var destinationPoint = CalculateDestinationPoint(inputSigned);
             var strafeTime = _staticDataService.ForLevel().StrafeAnimationTime;
 
-            if (CanStrafeTo(destinationPoint) && !_isStrafing)
+            if (CanStrafeTo(destinationPoint.x) && !_isStrafing)
             {
                 _isStrafing = true;
                 _coroutineRunnerService.StartCoroutine(DoStrafe(destinationPoint.x, strafeTime));
@@ -52,11 +52,9 @@ namespace CodeBase.Hero
             return destinationPoint;
         }
 
-        private bool CanStrafeTo(Vector3 destinationPoint)
+        private bool CanStrafeTo(float xValue)
         {
-            var maxUnits = _staticDataService.ForLevel().LinesSpacingX;
-
-            return !destinationPoint.VectorLengthIsGreaterThan(maxUnits);
+            return Mathf.Abs(xValue) <= _staticDataService.ForLevel().LinesSpacingX;
         }
 
         private IEnumerator DoStrafe(float targetX, float strafeTime)
@@ -82,11 +80,6 @@ namespace CodeBase.Hero
                     transform.position = new Vector3(targetX, currentPosition.y, currentPosition.z);
                 }
             }
-        }
-
-        private bool HasInput()
-        {
-            return Mathf.Abs(_inputService.Axis.x) > Constants.Epsilon;
         }
     }
 }

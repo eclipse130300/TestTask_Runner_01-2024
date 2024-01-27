@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using CodeBase.Infrastructure;
 using UnityEngine;
 
 [RequireComponent(typeof(ISpeedModifierProvider))]
-public class PowerUpSpeedModifierInteractable : MonoBehaviour, IInteractable
+public class PowerUpSpeedModifier : MonoBehaviour, IInteractable
 {
     private ILevelRunnerService _levelRunnerService;
     private IStaticDataService _staticDataService;
