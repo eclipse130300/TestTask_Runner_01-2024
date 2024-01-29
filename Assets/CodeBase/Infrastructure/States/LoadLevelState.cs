@@ -1,7 +1,7 @@
 ﻿using CodeBase.CameraLogic;
-using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
+using CodeBase.Services;
 using CodeBase.UI;
 using UnityEngine;
 

@@ -1,7 +1,13 @@
-﻿public enum SamplePointType
+﻿namespace CodeBase.Services
 {
-    None,
-    Path,
-    Obstacle,
-    PowerUp
+    /// <summary>
+    /// Finite state of chunk sample point
+    /// </summary>
+    public enum SamplePointType
+    {
+        None,
+        Path,
+        Obstacle,
+        PowerUp
+    }
 }

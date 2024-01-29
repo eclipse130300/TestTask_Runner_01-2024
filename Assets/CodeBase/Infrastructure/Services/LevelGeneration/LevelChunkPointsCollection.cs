@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 
-//actually might be any collection
-public class LevelChunkPointsCollection
+namespace CodeBase.Services
 {
-    public readonly List<ChunkSamplePoint> PointsCollection;
-
-    public LevelChunkPointsCollection(List<ChunkSamplePoint> pointsCollection)
+    //actually might be any collection<T> but whatever
+    public class LevelChunkPointsCollection
     {
-        PointsCollection = pointsCollection;
+        public readonly List<ChunkSamplePoint> PointsCollection;
+
+        public LevelChunkPointsCollection(List<ChunkSamplePoint> pointsCollection)
+        {
+            PointsCollection = pointsCollection;
+        }
     }
 }

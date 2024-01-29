@@ -1,38 +1,41 @@
 ﻿using UnityEngine;
 
-public class LevelRunnerService : ILevelRunnerService, ITickable
+namespace CodeBase.Services
 {
-    private readonly ILevelGeneratorService _levelGeneratorService;
-    
-    private bool _isRunning;
-    private float _currentSpeed;
-
-    public LevelRunnerService(ILevelGeneratorService levelGeneratorService, IStaticDataService staticDataService)
+    /// <summary>
+    /// Service that moves level in our app (as we have infinite runner, we move not the player but the level)
+    /// </summary>
+    public class LevelRunnerService : ILevelRunnerService, ITickable
     {
-        _levelGeneratorService = levelGeneratorService;
-        _currentSpeed = staticDataService.ForGame().ScrollSpeed;
-    }
-    
-    public void Run() => 
-        _isRunning = true;
+        private readonly ILevelGeneratorService _levelGeneratorService;
 
-    public void Stop() => 
-        _isRunning = false;
+        private bool _isRunning;
+        private float _currentSpeed;
 
-    public void Tick(float deltaTime)
-    {
-        if(!_isRunning)
-            return;
-
-        foreach (var generatedChunk in _levelGeneratorService.GeneratedChunks)
+        public LevelRunnerService(ILevelGeneratorService levelGeneratorService, IStaticDataService staticDataService)
         {
-            generatedChunk.ViewGameObject.transform.position += Vector3.back * _currentSpeed * deltaTime;
+            _levelGeneratorService = levelGeneratorService;
+            _currentSpeed = staticDataService.ForGame().ScrollSpeed;
         }
-    }
 
-    public void ModifyCurrentSpeed(float delta)
-    {
-        //Debug.Log($"Modified current from {_currentSpeed} for {delta}");
-        _currentSpeed += delta;
+        public void Run() => _isRunning = true;
+
+        public void Stop() => _isRunning = false;
+
+        public void Tick(float deltaTime)
+        {
+            if (!_isRunning)
+                return;
+
+            foreach (var generatedChunk in _levelGeneratorService.GeneratedChunks)
+            {
+                generatedChunk.ViewGameObject.transform.position += Vector3.back * _currentSpeed * deltaTime;
+            }
+        }
+
+        public void ModifyCurrentSpeed(float delta)
+        {
+            _currentSpeed += delta;
+        }
     }
 }

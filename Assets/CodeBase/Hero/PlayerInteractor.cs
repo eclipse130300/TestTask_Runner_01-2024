@@ -1,4 +1,5 @@
 ﻿using CodeBase.Infrastructure.CollisionDetection;
+using CodeBase.Interactions;
 using UnityEngine;
 
 public class PlayerInteractor : MonoBehaviour

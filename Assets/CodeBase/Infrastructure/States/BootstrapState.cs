@@ -1,5 +1,6 @@
 ﻿using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
+using CodeBase.Services;
 using CodeBase.Services.Input;
 using CodeBase.StaticData;
 using CodeBase.UI;
@@ -17,14 +18,14 @@ namespace CodeBase.Infrastructure.States
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly AllServices _services;
-        private readonly TickableManager _tickableManager;
+        private readonly TickableService _tickableService;
 
-        public BootstrapState(GameStateMachine stateMachine, TickableManager tickableManager, SceneLoader sceneLoader, AllServices services)
+        public BootstrapState(GameStateMachine stateMachine, TickableService tickableService, SceneLoader sceneLoader, AllServices services)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _services = services;
-            _tickableManager = tickableManager;
+            _tickableService = tickableService;
             
             RegisterServices();
         }
@@ -44,7 +45,7 @@ namespace CodeBase.Infrastructure.States
         private void RegisterServices()
         {
             RegisterStaticData();
-            _services.RegisterSingle<ICoroutineRunnerService>(_tickableManager);
+            _services.RegisterSingle<ICoroutineRunnerService>(_tickableService);
             _services.RegisterSingle<IInputService>(GetPlatformInput());
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
             _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
@@ -62,7 +63,7 @@ namespace CodeBase.Infrastructure.States
                 _services.Single<IGameFactory>()));
 
             var levelRunner = new LevelRunnerService(_services.Single<ILevelGeneratorService>(), _services.Single<IStaticDataService>());
-            _tickableManager.Register(levelRunner);
+            _tickableService.Register(levelRunner);
             _services.RegisterSingle<ILevelRunnerService>(levelRunner);
         }
 

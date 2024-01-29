@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Chunks;
-using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Services;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Factory

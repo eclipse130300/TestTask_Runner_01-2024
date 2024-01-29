@@ -1,6 +1,6 @@
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
-using CodeBase.Services.Input;
+using CodeBase.Services;
 
 namespace CodeBase.Infrastructure
 {
@@ -8,7 +8,7 @@ namespace CodeBase.Infrastructure
   {
     public readonly GameStateMachine StateMachine;
 
-    public Game(ICoroutineRunnerService coroutineRunnerService, TickableManager tickableManager, LoadingCurtain loadingCurtain)
+    public Game(ICoroutineRunnerService coroutineRunnerService, TickableService tickableManager, LoadingCurtain loadingCurtain)
     {
        StateMachine = new GameStateMachine(new SceneLoader(coroutineRunnerService),
          tickableManager,

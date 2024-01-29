@@ -1,5 +1,6 @@
-﻿namespace CodeBase.Hero
+﻿namespace CodeBase.Services
 {
+    //Interfaces used on dynamic objects to load and update persistent data
     public interface ISavedProgressReader
     {
         void LoadProgress(PlayerProgress playerProgress);

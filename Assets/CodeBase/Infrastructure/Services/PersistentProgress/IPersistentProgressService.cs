@@ -1,4 +1,8 @@
-﻿public interface IPersistentProgressService : IService
+﻿namespace CodeBase.Services
 {
-    PlayerProgress  Progress {get; set; }
+    //abstraction for gaining persistent player data
+    public interface IPersistentProgressService : IService
+    {
+        PlayerProgress Progress { get; set; }
+    }
 }

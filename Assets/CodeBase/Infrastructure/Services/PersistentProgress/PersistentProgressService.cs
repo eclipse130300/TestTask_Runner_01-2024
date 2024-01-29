@@ -1,4 +1,10 @@
-﻿public class PersistentProgressService : IPersistentProgressService
+﻿namespace CodeBase.Services
 {
-    public PlayerProgress  Progress {get; set; }
+    /// <summary>
+    /// grants access to persistent player data
+    /// </summary>
+    public class PersistentProgressService : IPersistentProgressService
+    {
+        public PlayerProgress Progress { get; set; }
+    }
 }

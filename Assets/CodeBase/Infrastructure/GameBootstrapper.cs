@@ -1,5 +1,6 @@
 ﻿using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
+using CodeBase.Services;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure
@@ -10,14 +11,14 @@ namespace CodeBase.Infrastructure
     private LoadingCurtain _loadingCurtainPrefab;
 
     [SerializeField]
-    private TickableManager _tickableManagerPrefab;
+    private TickableService _tickableManagerPrefab;
     
     private Game _game;
 
     private void Awake()
     {
       
-      var singleUpdateGameobject = FindObjectOfType<TickableManager>();
+      var singleUpdateGameobject = FindObjectOfType<TickableService>();
 
       if (singleUpdateGameobject == null)
       {

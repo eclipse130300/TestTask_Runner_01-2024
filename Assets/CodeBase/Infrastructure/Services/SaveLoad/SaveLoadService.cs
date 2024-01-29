@@ -2,8 +2,9 @@
 using CodeBase.Infrastructure.Factory;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.States
+namespace CodeBase.Services
 {
+    //not used in the project for now
     public class SaveLoadService : ISaveLoadService
     {
         private const string PROGRESS_KEY = "PlayerProgress";

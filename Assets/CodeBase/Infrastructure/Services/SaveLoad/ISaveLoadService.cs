@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Infrastructure.States
+﻿namespace CodeBase.Services
 {
     public interface ISaveLoadService : IService
     {
