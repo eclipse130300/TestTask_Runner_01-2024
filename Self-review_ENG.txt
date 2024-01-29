@@ -1,0 +1,24 @@
+Finite State Machine (GameStateMachine):
+The initialization stages of the application are divided into unique states:
+bootstrap, levelLoad, playerProgressLoad, GameLoop.
+
+Service Locator (AllServices):
+The primary initialization of the application occurs during the bootstrap stage. 
+Here, all necessary services are registered, and dependencies are resolved. 
+While IoC&DI could have been used at this stage, a custom solution was implemented for simplicity.
+
+Component (IInteractable, Obstacle, PowerUpFlyer):
+Game interactions (e.g., collecting PowerUps) are implemented using the component pattern and MonoBehaviour.
+Composition of components on GameObjects allowed for an ideally extensible architecture.
+
+EventBus (EventBus):
+The project utilizes an EventBus as a global event bus (e.g., GameplayStarted, GameplayFinished). 
+Despite the potential for globally altering application states, when used correctly (following the publisher-subscriber model, send the event and forget),
+it provides a flexible architectural solution with minimal boilerplate code due to its implementation features.
+
+Factory (GameFactory):
+A common factory is employed in the project to create and initialize all objects in the scene.
+
+Procedural Content Generation (LevelGeneratorService):
+As an enhancement beyond the basic task (showing off), level creation is implemented through procedural generation. 
+Techniques such as PerlinNoise and Breadth-First search are utilized to create plausible procedural levels.
