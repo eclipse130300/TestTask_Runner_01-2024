@@ -1,12 +1,10 @@
 ﻿using System;
 
+/// <summary>
+/// Class that we serialize to record player progress
+/// </summary>
+/// now is empty
 [Serializable]
 public class PlayerProgress
 {
-    public WorldData WorldData;
-
-    public PlayerProgress(string initialLevel)
-    {
-        WorldData = new WorldData(initialLevel);
-    }
 }

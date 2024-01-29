@@ -6,7 +6,7 @@ namespace CodeBase.Interactions
     /// <summary>
     /// Provides speed- data from config
     /// </summary>
-    public class SpeedUpModifierProvider : MonoBehaviour, ISpeedModifierProvider
+    public class SpeedDownModifierProvider : MonoBehaviour, ISpeedModifierProvider
     {
         private IStaticDataService _staticDataService;
         private void Awake() => _staticDataService = AllServices.Container.Single<IStaticDataService>();

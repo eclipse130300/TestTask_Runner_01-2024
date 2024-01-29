@@ -31,6 +31,7 @@ namespace CodeBase.Infrastructure.States
 
         public void Enter()
         {
+            _tickableService.StopAllCoroutines();
             _sceneLoader.Load(INITIAL_SCENE, onLoad: LoadProgress);
         }
         

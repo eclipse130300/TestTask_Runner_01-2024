@@ -5,7 +5,7 @@ using CodeBase.Services;
 namespace CodeBase.Infrastructure
 {
   /// <summary>
-  ///   /// entry point to a game as a POCO
+  /// entry point to a game as a POCO
   /// </summary>
   public class Game
   {

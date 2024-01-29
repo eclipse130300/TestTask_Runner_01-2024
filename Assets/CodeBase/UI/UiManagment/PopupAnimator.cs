@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using CodeBase.Infrastructure;
 using CodeBase.Services;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -33,7 +32,6 @@ namespace CodeBase.UI
             var staticData = _staticDataService.ForGame();
 
             _canvasGroup.alpha = staticData.UiMinAlpha;
-            ;
             transform.localScale = Vector3.one * staticData.UiMaxScale;
 
             _coroutineRunnerService.StartCoroutine(AnimateRoutine(1, 1));

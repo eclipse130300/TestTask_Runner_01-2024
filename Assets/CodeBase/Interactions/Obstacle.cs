@@ -10,12 +10,8 @@ namespace CodeBase.Interactions
     {
         public void Interact(GameObject interactionInvoker)
         {
-            if (interactionInvoker.TryGetComponent<PlayerMove>(out _))
-            {
-                //this is the player
-                //we just end game
-                EventBus.RaiseEvent<IGameplayFinishedHandler>(x => x.OnGameLoopFinished());
-            }
+            if (interactionInvoker.TryGetComponent<IDeathable>(out var deathable))
+                deathable.Die();
         }
     }
 }

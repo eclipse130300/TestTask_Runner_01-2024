@@ -98,8 +98,6 @@ namespace CodeBase.UI
                     Debug.LogError($"Popup {type.Name} not found");
 
                 T instance = Object.Instantiate(prefab, _root);
-                instance.Construct(_progressService);
-                
                 var animator = instance.GetComponent<IWindowAnimator>();
                 var windowInfo = new WindowInfo(typeof(T), instance.gameObject, animator);
 

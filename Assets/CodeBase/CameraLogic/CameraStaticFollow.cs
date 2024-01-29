@@ -2,6 +2,9 @@
 
 namespace CodeBase.CameraLogic
 {
+    /// <summary>
+    /// static camera following gameobject on Start only
+    /// </summary>
     public class CameraStaticFollow : MonoBehaviour
     {
         [SerializeField]

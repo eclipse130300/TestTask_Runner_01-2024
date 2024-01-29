@@ -22,7 +22,7 @@ namespace CodeBase.Infrastructure.States
         public void Enter()
         {
             LoadProgressOrInitNew();
-            _gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
+            _gameStateMachine.Enter<LoadLevelState, string>("Main");
         }
 
         public void Exit()
@@ -37,7 +37,7 @@ namespace CodeBase.Infrastructure.States
 
         private PlayerProgress NewProgress()
         {
-           var progress = new PlayerProgress(initialLevel: "Main");
+           var progress = new PlayerProgress();
            return progress;
         }
     }

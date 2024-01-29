@@ -30,7 +30,7 @@ namespace CodeBase.Infrastructure.Factory
 
         public GameObject CreateHero(GameObject at)
         {
-            _heroGameObject = InstantiateRegistered(AssetPath.HERO_PATH, at.transform.position);
+            _heroGameObject = InstantiateRegistered(AssetPath.PLAYER_PATH, at.transform.position);
             return _heroGameObject;
         }
 

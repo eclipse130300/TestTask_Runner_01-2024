@@ -16,17 +16,17 @@ namespace CodeBase.Chunks
         [SerializeField]
         private Transform _chunkVisualTransform;
 
-        private float chunkUnitySizeZ;
+        private float _chunkUnitySizeZ;
 
         public void Construct(IStaticDataService staticDataService)
         {
             var levelData = staticDataService.ForGame();
-            chunkUnitySizeZ = levelData.ChunkRows * levelData.LinesSpacingZ;
+            _chunkUnitySizeZ = levelData.ChunkRows * levelData.LinesSpacingZ;
         }
 
         private void LateUpdate()
         {
-            var endChunkPoint = transform.position + Vector3.forward * chunkUnitySizeZ;
+            var endChunkPoint = transform.position + Vector3.forward * _chunkUnitySizeZ;
             
             //as a start point is on Vector3.Zero
             if (endChunkPoint.z <= 0)
