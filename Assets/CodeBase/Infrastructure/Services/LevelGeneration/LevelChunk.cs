@@ -15,9 +15,9 @@ public class LevelChunk
     
     public List<ChunkSamplePoint> PowerUps { get; private set; } = new();
 
-    private LevelStaticData _config;
+    private GameStaticData _config;
 
-    public LevelChunk(LevelStaticData config, GameObject chunkGameObject)
+    public LevelChunk(GameStaticData config, GameObject chunkGameObject)
     {
         _config = config;
         ViewGameObject = chunkGameObject;

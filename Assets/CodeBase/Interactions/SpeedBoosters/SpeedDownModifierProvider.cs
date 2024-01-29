@@ -6,5 +6,5 @@ public class SpeedUpModifierProvider : MonoBehaviour, ISpeedModifierProvider
         _staticDataService = AllServices.Container.Single<IStaticDataService>();
 
     public float GetSpeedModifier() => 
-        _staticDataService.ForLevel().SpeedDownModifier;
+        _staticDataService.ForGame().SpeedDownModifier;
 }

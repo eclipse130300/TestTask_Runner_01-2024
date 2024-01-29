@@ -15,7 +15,7 @@ namespace CodeBase.Infrastructure.States
         private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
         private readonly IStaticDataService _staticDataService;
-        private readonly IUIFactory _uiFactory;
+        private readonly IUIService iuiService;
         private readonly ILevelGeneratorService _levelGeneratorService;
 
         public LoadLevelState(
@@ -26,10 +26,10 @@ namespace CodeBase.Infrastructure.States
             IGameFactory gameFactory,
             IPersistentProgressService progressService,
             IStaticDataService staticDataService,
-            IUIFactory uiFactory,
+            IUIService iuiService,
             ILevelGeneratorService levelGeneratorService)
         {
-            _uiFactory = uiFactory;
+            this.iuiService = iuiService;
             this._levelGeneratorService = levelGeneratorService;
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
@@ -61,7 +61,7 @@ namespace CodeBase.Infrastructure.States
         }
 
         private void InitUIRoot() => 
-            _uiFactory.CreateUIRoot();
+            iuiService.CreateUIRoot();
 
         private void InformProgressReaders()
         {

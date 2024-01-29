@@ -23,7 +23,7 @@ namespace CodeBase.Infrastructure.States
                     services.Single<IGameFactory>(),
                     services.Single<IPersistentProgressService>(),
                     services.Single<IStaticDataService>(),
-                    services.Single<IUIFactory>(),
+                    services.Single<IUIService>(),
                     services.Single<ILevelGeneratorService>()),
                 
                 [typeof(LoadProgressState)] = new LoadProgressState(this,

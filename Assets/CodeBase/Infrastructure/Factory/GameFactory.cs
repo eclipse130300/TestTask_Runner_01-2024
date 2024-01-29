@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Chunks;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.UI.Elements;
-using CodeBase.UI.Services.Windows;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Factory
@@ -16,19 +13,16 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IAssetProvider _assetProvider;
         private readonly IStaticDataService _staticData;
         private readonly IPersistentProgressService _persistentProgressService;
-        private readonly IWindowService _windowService;
 
         public List<ISavedProgressReader> ReadersList { get; } = new List<ISavedProgressReader>();
 
         public List<ISavedProgressWriter> WritersList { get; } = new List<ISavedProgressWriter>();
 
         public GameFactory(
-            IWindowService windowService,
             IAssetProvider assetProvider,
             IStaticDataService staticDataService,
             IPersistentProgressService persistentProgressService)
         {
-            _windowService = windowService;
             _assetProvider = assetProvider;
             _staticData = staticDataService;
             _persistentProgressService = persistentProgressService;
@@ -43,10 +37,6 @@ namespace CodeBase.Infrastructure.Factory
         public GameObject CreateHud()
         {
             GameObject hud = InstantiateRegistered(AssetPath.HUD_PATH);
-            hud.GetComponentInChildren<LootCounter>().Construct(_persistentProgressService.Progress.WorldData);
-
-            foreach (OpenWindowButton openWindowButton in hud.GetComponentsInChildren<OpenWindowButton>())
-                openWindowButton.Construct(_windowService);
 
             return hud;
         }
@@ -69,7 +59,7 @@ namespace CodeBase.Infrastructure.Factory
         {
             var obstacle = _assetProvider.Instantiate(AssetPath.OBSTACLE_PATH);
             
-            var levelData = _staticData.ForLevel();
+            var levelData = _staticData.ForGame();
             
             obstacle.transform.SetParent(parent);
             obstacle.transform.localPosition = localPos;
@@ -82,7 +72,7 @@ namespace CodeBase.Infrastructure.Factory
         public GameObject CreatePowerUp(Transform parent, Vector3 localPos)
         {
             var randomPowerUpPath = _staticData
-                                   .ForLevel()
+                                   .ForGame()
                                    .PowerUpsPathsPool
                                    .OrderBy(_ => new System.Random().Next())
                                    .Take(1)

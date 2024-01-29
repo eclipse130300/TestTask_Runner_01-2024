@@ -4,7 +4,8 @@ using UnityEngine;
 namespace CodeBase.StaticData
 {
     [CreateAssetMenu(fileName = "LevelData", menuName = "StaticData/Level")]
-    public class LevelStaticData : ScriptableObject
+    //we could make separate configs, but for test proj, whatever
+    public class GameStaticData : ScriptableObject
     {
         [Header("Common settings")]
         public float LinesSpacingX = 3f;
@@ -21,7 +22,7 @@ namespace CodeBase.StaticData
         public int SafeRunZone = 30;
         public float PerlinScale = 20f;
 
-        public float ObstaclePercent = 0;
+        public float ObstaclePercentInChunk = 0;
         public int DontSpawnObstaclesOnStartRowsAmount = 3;
 
         [Header("PowerUps")]
@@ -36,5 +37,10 @@ namespace CodeBase.StaticData
 
         public float FlyingHeight = 3f;
         public float TakeOffTime = 2f;
+        
+        [Header("UISettings")]
+        public float UiAnimationTime = 0.5f;
+        public float UiMinAlpha = 0.3f;
+        public float UiMaxScale = 1.2f;
     }
 }

@@ -15,7 +15,7 @@ namespace CodeBase.Chunks
 
         public void Construct(IStaticDataService staticDataService)
         {
-            var levelData = staticDataService.ForLevel();
+            var levelData = staticDataService.ForGame();
             chunkUnitySizeZ = levelData.ChunkRows * levelData.LinesSpacingZ;
         }
 

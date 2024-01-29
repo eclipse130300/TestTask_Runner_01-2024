@@ -28,7 +28,7 @@ public class PowerUpSpeedModifier : MonoBehaviour, IInteractable
         var speedModifier = _speedModifierProvider.GetSpeedModifier();
         _levelRunnerService.ModifyCurrentSpeed(speedModifier);
 
-        yield return new WaitForSeconds(_staticDataService.ForLevel().PowerUpDuration);
+        yield return new WaitForSeconds(_staticDataService.ForGame().PowerUpDuration);
         
         _levelRunnerService.ModifyCurrentSpeed(-speedModifier);
     }

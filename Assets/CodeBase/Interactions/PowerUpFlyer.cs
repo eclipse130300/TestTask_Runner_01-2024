@@ -26,7 +26,7 @@ public class PowerUpFlyer : MonoBehaviour, IInteractable
     {
         flyer.StartFlying();
 
-        yield return new WaitForSeconds(_staticDataService.ForLevel().PowerUpDuration);
+        yield return new WaitForSeconds(_staticDataService.ForGame().PowerUpDuration);
         
         flyer.StopFlying();
     }

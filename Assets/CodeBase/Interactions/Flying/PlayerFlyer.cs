@@ -19,7 +19,7 @@ public class PlayerFlyer : MonoBehaviour, IFlyer
     {
         _playerInteractor.enabled = false;
         
-        var targetY = _staticDataService.ForLevel().FlyingHeight;
+        var targetY = _staticDataService.ForGame().FlyingHeight;
         StartCoroutine(FlyingRoutine(targetY, EaseInCubic));
     }
 
@@ -34,7 +34,7 @@ public class PlayerFlyer : MonoBehaviour, IFlyer
     {
         var startY = transform.position.y;
         float t = 0;
-        var animTime = _staticDataService.ForLevel().TakeOffTime;
+        var animTime = _staticDataService.ForGame().TakeOffTime;
         
         while (true)
         {

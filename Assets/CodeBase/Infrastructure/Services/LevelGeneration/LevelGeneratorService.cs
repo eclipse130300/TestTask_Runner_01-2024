@@ -32,7 +32,7 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
 
     public void InitializeLevel()
     {
-        var levelData = _staticDataService.ForLevel();
+        var levelData = _staticDataService.ForGame();
 
         _randomSeedPerlinOffset = Random.Range(-100f, 100f);
         
@@ -47,7 +47,7 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
             currentPos += Vector3.forward * levelData.ChunkRows * levelData.LinesSpacingZ;
         }
     }
-    private void CreateChunk(LevelStaticData staticData, Vector3 chunkPosition)
+    private void CreateChunk(GameStaticData staticData, Vector3 chunkPosition)
     {
         var chunkXSize = (staticData.LinesSpacingX + staticData.ChunkSideBorders) * 2;
         var chunkZSize = staticData.LinesSpacingZ * staticData.ChunkRows;
@@ -74,7 +74,7 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
         }        
     }
 
-    private void GenerateChunkPlayerPath(LevelStaticData staticData, LevelChunk chunk)
+    private void GenerateChunkPlayerPath(GameStaticData staticData, LevelChunk chunk)
     {
         var maxRows = staticData.ChunkRows;
 
@@ -133,7 +133,7 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
             _lastChunkSequencePosition.y,
             _lastChunkSequencePosition.z + overshootOffset);
         
-        CreateChunk(_staticDataService.ForLevel(), overshotPosition);
+        CreateChunk(_staticDataService.ForGame(), overshotPosition);
     }
 
     public void Dispose()

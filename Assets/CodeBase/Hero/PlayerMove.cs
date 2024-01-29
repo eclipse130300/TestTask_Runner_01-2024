@@ -34,7 +34,7 @@ namespace CodeBase.Hero
                 return;
             
             var destinationPoint = CalculateDestinationPoint(inputSigned);
-            var strafeTime = _staticDataService.ForLevel().StrafeAnimationTime;
+            var strafeTime = _staticDataService.ForGame().StrafeAnimationTime;
 
             if (CanStrafeTo(destinationPoint.x) && !_isStrafing)
             {
@@ -46,7 +46,7 @@ namespace CodeBase.Hero
         private Vector3 CalculateDestinationPoint(Vector2 inputSigned)
         {
             var side = _camera.transform.TransformDirection(inputSigned);
-            var levelData = _staticDataService.ForLevel();
+            var levelData = _staticDataService.ForGame();
 
             var destinationPoint = transform.position + side * levelData.LinesSpacingX;
             return destinationPoint;
@@ -54,7 +54,7 @@ namespace CodeBase.Hero
 
         private bool CanStrafeTo(float xValue)
         {
-            return Mathf.Abs(xValue) <= _staticDataService.ForLevel().LinesSpacingX;
+            return Mathf.Abs(xValue) <= _staticDataService.ForGame().LinesSpacingX;
         }
 
         private IEnumerator DoStrafe(float targetX, float strafeTime)

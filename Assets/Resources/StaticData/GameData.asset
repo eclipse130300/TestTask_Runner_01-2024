@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e378e1f3aa82417b83d10325d3cb657e, type: 3}
-  m_Name: Levels
+  m_Name: GameData
   m_EditorClassIdentifier: 
   LinesSpacingX: 3
   LinesSpacingZ: 3
@@ -21,7 +21,7 @@ MonoBehaviour:
   PreloadedChunks: 3
   SafeRunZone: 10
   PerlinScale: 0.23
-  ObstaclePercent: 0
+  ObstaclePercentInChunk: 0
   DontSpawnObstaclesOnStartRowsAmount: 3
   ChunkPowerUpsAmount: 1
   PowerUpsPathsPool:
@@ -33,3 +33,6 @@ MonoBehaviour:
   SpeedDownModifier: -3
   FlyingHeight: 3
   TakeOffTime: 2
+  UiAnimationTime: 0.2
+  UiMinAlpha: 0.1
+  UiMaxScale: 1.2

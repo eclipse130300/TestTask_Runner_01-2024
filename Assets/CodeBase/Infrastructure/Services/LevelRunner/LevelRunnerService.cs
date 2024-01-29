@@ -13,7 +13,7 @@ public class LevelRunnerService : ILevelRunnerService, ITickable, IGameLoopStart
     public LevelRunnerService(ILevelGeneratorService levelGeneratorService, IStaticDataService staticDataService)
     {
         _levelGeneratorService = levelGeneratorService;
-        _currentSpeed = staticDataService.ForLevel().ScrollSpeed;
+        _currentSpeed = staticDataService.ForGame().ScrollSpeed;
         
         EventBus.Subscribe(this);
     }
