@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace CodeBase.Infrastructure
 {
+  /// <summary>
+  /// entry point to a game from MonoBehaviour
+  /// </summary>
   public class GameBootstrapper : MonoBehaviour
   {
     [SerializeField] 

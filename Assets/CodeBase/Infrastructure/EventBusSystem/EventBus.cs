@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace EventBusSystem
 {
+    /// <summary>
+    /// Global (interface based) event bus
+    /// </summary>
     public static class EventBus
     {
         private static Dictionary<Type, SubscribersList<IGlobalSubscriber>> s_Subscribers

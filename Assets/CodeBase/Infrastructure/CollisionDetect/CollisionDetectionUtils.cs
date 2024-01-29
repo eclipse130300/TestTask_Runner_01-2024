@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 
-public static class CollisionDetectionUtils
+namespace CodeBase.Infrastructure.CollisionDetection
 {
-    public static bool InsideLayerMask(this GameObject gameObject, LayerMask layerMask)
+    public static class CollisionDetectionUtils
     {
-        int collidingObjLayer = 1 << gameObject.layer;
-
-        if ((collidingObjLayer & layerMask) != 0)
+        public static bool InsideLayerMask(this GameObject gameObject, LayerMask layerMask)
         {
-            return true;
-        }
+            int collidingObjLayer = 1 << gameObject.layer;
 
-        return false;
+            if ((collidingObjLayer & layerMask) != 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

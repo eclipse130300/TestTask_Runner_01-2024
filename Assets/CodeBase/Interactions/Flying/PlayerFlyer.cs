@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using CodeBase.Services;
 using UnityEngine;
 
 namespace CodeBase.Interactions
@@ -10,7 +11,7 @@ namespace CodeBase.Interactions
     public class PlayerFlyer : MonoBehaviour, IFlyer
     {
         [SerializeField]
-        private PlayerInteractor _playerInteractor;
+        private Interactor _interactor;
 
         private bool _isFlying;
 
@@ -23,7 +24,7 @@ namespace CodeBase.Interactions
 
         public void StartFlying()
         {
-            _playerInteractor.enabled = false;
+            _interactor.enabled = false;
 
             var targetY = _staticDataService.ForGame().FlyingHeight;
             StartCoroutine(FlyingRoutine(targetY, EaseInCubic));
@@ -31,7 +32,7 @@ namespace CodeBase.Interactions
 
         public void StopFlying()
         {
-            _playerInteractor.enabled = true;
+            _interactor.enabled = true;
 
             StartCoroutine(FlyingRoutine(0, EaseOutCubic));
 

@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CodeBase.StaticData;
 using UnityEngine;
 using Random = System.Random;
 
 namespace CodeBase.Services
 {
+    /// <summary>
+    /// Structure to represent generated chunk data
+    /// </summary>
     public class LevelChunk
     {
         public GameObject ViewGameObject { get; }

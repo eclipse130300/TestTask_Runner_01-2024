@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using CodeBase.Infrastructure;
+using CodeBase.Services;
 using UnityEngine;
 
 namespace CodeBase.Interactions
@@ -10,7 +11,6 @@ namespace CodeBase.Interactions
     public class PowerUpFlyer : MonoBehaviour, IInteractable
     {
         private IStaticDataService _staticDataService;
-
         private ICoroutineRunnerService _coroutineRunnerService;
 
         private void Awake()

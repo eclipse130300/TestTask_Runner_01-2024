@@ -5,7 +5,6 @@ namespace CodeBase.Infrastructure.CollisionDetection
     public class CollisionLayerDetectorBase : MonoBehaviour
     {
         [SerializeField] private LayerMask _layerToDetect;
-
         [SerializeField] private bool _onlyOnce = true;
 
         private CollisionLayerDetector _triggerDetector;

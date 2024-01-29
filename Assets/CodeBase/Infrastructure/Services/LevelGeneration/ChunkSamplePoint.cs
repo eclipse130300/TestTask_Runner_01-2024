@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace CodeBase.Services
 {
+    /// <summary>
+    /// Structure to represent single cell(statefull point) on the chunk
+    /// </summary>
     public class ChunkSamplePoint
     {
         public readonly Vector2Int Id;

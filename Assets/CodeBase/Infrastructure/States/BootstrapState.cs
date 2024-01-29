@@ -2,7 +2,6 @@
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Services;
 using CodeBase.Services.Input;
-using CodeBase.StaticData;
 using CodeBase.UI;
 using UnityEngine;
 
@@ -53,8 +52,7 @@ namespace CodeBase.Infrastructure.States
                 (new UIService(_services.Single<IAssetProvider>(), _services.Single<IPersistentProgressService>()));
 
             _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>(),
-                _services.Single<IStaticDataService>(),
-                _services.Single<IPersistentProgressService>()));
+                _services.Single<IStaticDataService>()));
 
             _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(),
                 _services.Single<IGameFactory>()));

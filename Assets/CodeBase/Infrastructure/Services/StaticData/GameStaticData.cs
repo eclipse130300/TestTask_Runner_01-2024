@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace CodeBase.StaticData
+namespace CodeBase.Services
 {
     /// <summary>
     /// Main config containing all game settings

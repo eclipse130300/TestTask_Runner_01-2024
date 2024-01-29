@@ -7,12 +7,14 @@ using UnityEngine;
 
 namespace CodeBase.Infrastructure.Factory
 {
+    /// <summary>
+    /// Common interface for instantiating and initializing gameobjects
+    /// </summary>
     public class GameFactory : IGameFactory
     {
         private GameObject _heroGameObject;
         private readonly IAssetProvider _assetProvider;
         private readonly IStaticDataService _staticData;
-        private readonly IPersistentProgressService _persistentProgressService;
 
         public List<ISavedProgressReader> ReadersList { get; } = new List<ISavedProgressReader>();
 
@@ -20,12 +22,10 @@ namespace CodeBase.Infrastructure.Factory
 
         public GameFactory(
             IAssetProvider assetProvider,
-            IStaticDataService staticDataService,
-            IPersistentProgressService persistentProgressService)
+            IStaticDataService staticDataService)
         {
             _assetProvider = assetProvider;
             _staticData = staticDataService;
-            _persistentProgressService = persistentProgressService;
         }
 
         public GameObject CreateHero(GameObject at)

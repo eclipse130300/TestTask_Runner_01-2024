@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using CodeBase.Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,15 +8,15 @@ namespace CodeBase.Infrastructure
 {
     public class SceneLoader
     {
-        private readonly ICoroutineRunnerService coroutineRunnerService;
+        private readonly ICoroutineRunnerService _coroutineRunnerService;
 
         public SceneLoader(ICoroutineRunnerService coroutineRunnerService)
         {
-            this.coroutineRunnerService = coroutineRunnerService;
+            _coroutineRunnerService = coroutineRunnerService;
         }
 
         public void Load(string name, Action onLoad = null) =>
-            coroutineRunnerService.StartCoroutine(LoadScene(name, onLoad));
+            _coroutineRunnerService.StartCoroutine(LoadScene(name, onLoad));
 
         private IEnumerator LoadScene(string nextScene, Action onLoad = null)
         {

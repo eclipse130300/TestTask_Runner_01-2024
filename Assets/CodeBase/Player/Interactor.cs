@@ -2,7 +2,10 @@
 using CodeBase.Interactions;
 using UnityEngine;
 
-public class PlayerInteractor : MonoBehaviour
+/// <summary>
+/// Component used for enabling interactions on this gameobject
+/// </summary>
+public class Interactor : MonoBehaviour
 {
     [SerializeField]
     private CollisionDetector _collisionDetector;

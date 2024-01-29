@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CodeBase.StaticData
+namespace CodeBase.Services
 {
     /// <summary>
     /// provides static data (configs) to any client. Can load Scriptable, Remote, Xml, etc under the hood

@@ -1,3 +1,6 @@
-﻿public interface IService
+﻿namespace CodeBase.Services
 {
+    public interface IService
+    {
+    }
 }

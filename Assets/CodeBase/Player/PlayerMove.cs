@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using CodeBase.Infrastructure;
+using CodeBase.Services;
 using CodeBase.Services.Input;
 using UnityEngine;
 

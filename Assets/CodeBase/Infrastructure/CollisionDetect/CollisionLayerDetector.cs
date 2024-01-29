@@ -6,12 +6,12 @@ namespace CodeBase.Infrastructure.CollisionDetection
 {
     public class CollisionLayerDetector
     {
-        private LayerMask _detectionLayerMask;
+        private readonly LayerMask _detectionLayerMask;
+        private readonly bool _onlyOneDetection;
         private bool _isActive = true;
-        private bool _onlyOneDetection;
 
         //for preventing multiple collision enters/exits
-        private List<Collider> _processingColliders = new();
+        private readonly List<Collider> _processingColliders = new();
 
         public CollisionLayerDetector(LayerMask detectionLayerMask, bool onlyOneDetection = true)
         {

@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace CodeBase.Infrastructure.CollisionDetection
 {
+    /// <summary>
+    /// Class used to avoid event trigger functions in code
+    /// </summary>
     public class CollisionDetector : CollisionLayerDetectorBase
     {
         public event Action <Collider>OnCollisionEnterDetected;
