@@ -47,8 +47,7 @@ namespace CodeBase.UI.Services
         
         public async UniTask<bool> HidePopup<T>() where T : BaseWindow
         {
-            Debug.Log($"Hiding popup {nameof(T)}");
-
+            Debug.Log($"Hiding popup {typeof(T).Name}");
             var tcs = new TaskCompletionSource<bool>();
             
             if(TryGetInstantiated(typeof(T), out var windowInfo))
@@ -135,6 +134,11 @@ namespace CodeBase.UI.Services
             var windowInfo = _intstantiatedList.Find(x => x.Type == type);
             info = windowInfo;
             return true;
+        }
+
+        public void CleanUp()
+        {
+            _intstantiatedList.Clear();
         }
     }
 }

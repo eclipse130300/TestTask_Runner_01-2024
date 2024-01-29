@@ -32,6 +32,7 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
 
     public void InitializeLevel()
     {
+        ClearAllChunks();
         var levelData = _staticDataService.ForGame();
 
         _randomSeedPerlinOffset = Random.Range(-100f, 100f);
@@ -136,8 +137,17 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
         CreateChunk(_staticDataService.ForGame(), overshotPosition);
     }
 
+    private void ClearAllChunks()
+    {
+        foreach (var chunk in _generatedChunks)
+            GameObject.Destroy(chunk.ViewGameObject);
+
+        _generatedChunks.Clear();
+    }
+
     public void Dispose()
     {
         EventBus.Unsubscribe(this);
+        ClearAllChunks();
     }
 }

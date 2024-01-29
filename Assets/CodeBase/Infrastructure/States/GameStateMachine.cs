@@ -19,10 +19,8 @@ namespace CodeBase.Infrastructure.States
                 [typeof(LoadLevelState)] = new LoadLevelState(this,
                     sceneLoader,
                     loadingCurtain,
-                    tickableManager,
                     services.Single<IGameFactory>(),
                     services.Single<IPersistentProgressService>(),
-                    services.Single<IStaticDataService>(),
                     services.Single<IUIService>(),
                     services.Single<ILevelGeneratorService>()),
                 

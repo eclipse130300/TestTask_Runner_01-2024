@@ -7,5 +7,6 @@ namespace CodeBase.UI.Services
         void CreateUIRoot();
         UniTask<bool> ShowPopup<T>() where T : BaseWindow;
         UniTask<bool> HidePopup<T>() where T : BaseWindow;
+        void CleanUp();
     }
 }

@@ -14,34 +14,31 @@ namespace CodeBase.Infrastructure.States
         private readonly LoadingCurtain _loadingCurtain;
         private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
-        private readonly IStaticDataService _staticDataService;
-        private readonly IUIService iuiService;
+        private readonly IUIService _iuiService;
         private readonly ILevelGeneratorService _levelGeneratorService;
 
         public LoadLevelState(
             GameStateMachine stateMachine,
             SceneLoader sceneLoader,
             LoadingCurtain loadingCurtain,
-            TickableManager tickableManager,
             IGameFactory gameFactory,
             IPersistentProgressService progressService,
-            IStaticDataService staticDataService,
             IUIService iuiService,
             ILevelGeneratorService levelGeneratorService)
         {
-            this.iuiService = iuiService;
-            this._levelGeneratorService = levelGeneratorService;
+            _iuiService = iuiService;
+            _levelGeneratorService = levelGeneratorService;
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
             _gameFactory = gameFactory;
             _progressService = progressService;
-            _staticDataService = staticDataService;
         }
 
         public void Enter(string payload)
         {
             _loadingCurtain.Show();
+            _iuiService.CleanUp();
             _gameFactory.CleanUp();
             _sceneLoader.Load(payload, OnLoad);
         }
@@ -60,8 +57,10 @@ namespace CodeBase.Infrastructure.States
             _stateMachine.Enter<GameplayState, bool>(true);
         }
 
-        private void InitUIRoot() => 
-            iuiService.CreateUIRoot();
+        private void InitUIRoot()
+        {
+            _iuiService.CreateUIRoot();
+        }
 
         private void InformProgressReaders()
         {

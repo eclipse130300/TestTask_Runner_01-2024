@@ -40,9 +40,9 @@ namespace CodeBase.Infrastructure.States
         {
             _levelRunnerService.Stop();
             
-            //reload game
+            //ugly way of reloading game
             await UniTask.Delay(TimeSpan.FromSeconds(1f));
-            _gameStateMachine.Enter<LoadLevelState, string>("Main");
+            _gameStateMachine.Enter<BootstrapState>();
 
         }
     }
