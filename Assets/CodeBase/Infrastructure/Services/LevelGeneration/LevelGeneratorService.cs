@@ -20,7 +20,6 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
 
     private int _currentRow;
     private float _randomSeedPerlinOffset;
-    private float chunkUnitySizeZ;
 
     public LevelGeneratorService(IStaticDataService staticDataService, IGameFactory gameFactory)
     {
@@ -32,7 +31,7 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
 
     public void InitializeLevel()
     {
-        ClearAllChunks();
+        CleanUp();
         var levelData = _staticDataService.ForGame();
 
         _randomSeedPerlinOffset = Random.Range(-100f, 100f);
@@ -137,17 +136,18 @@ public class LevelGeneratorService : ILevelGeneratorService, IChunkReadyForUnloa
         CreateChunk(_staticDataService.ForGame(), overshotPosition);
     }
 
-    private void ClearAllChunks()
+    private void CleanUp()
     {
         foreach (var chunk in _generatedChunks)
             GameObject.Destroy(chunk.ViewGameObject);
 
         _generatedChunks.Clear();
+        _currentRow = 0;
     }
 
     public void Dispose()
     {
         EventBus.Unsubscribe(this);
-        ClearAllChunks();
+        CleanUp();
     }
 }

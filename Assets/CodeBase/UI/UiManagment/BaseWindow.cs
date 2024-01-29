@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
 
-public abstract class BaseWindow : MonoBehaviour
+namespace CodeBase.UI
 {
-    protected IPersistentProgressService _progressService;
-    protected PlayerProgress Progress => _progressService.Progress;
-
-    public virtual void Construct(IPersistentProgressService progressService)
+    /// <summary>
+    /// Base class for all windows
+    /// </summary>
+    public abstract class BaseWindow : MonoBehaviour
     {
-        _progressService = progressService;
+        //we can update any window later, if we want with reactive fields of this class
+        protected PlayerProgress Progress => _progressService.Progress;
+        private IPersistentProgressService _progressService;
+
+        public void Construct(IPersistentProgressService progressService)
+        {
+            _progressService = progressService;
+        }
     }
 }

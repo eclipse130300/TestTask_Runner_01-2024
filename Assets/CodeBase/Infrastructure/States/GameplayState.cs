@@ -1,5 +1,5 @@
 ﻿using System;
-using CodeBase.UI.Services;
+using CodeBase.UI;
 using Cysharp.Threading.Tasks;
 using EventBusSystem;
 using Events;
@@ -40,7 +40,7 @@ namespace CodeBase.Infrastructure.States
         {
             _levelRunnerService.Stop();
             
-            //ugly way of reloading game
+            //reload game
             await UniTask.Delay(TimeSpan.FromSeconds(1f));
             _gameStateMachine.Enter<BootstrapState>();
 

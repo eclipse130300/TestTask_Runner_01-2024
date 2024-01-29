@@ -2,6 +2,10 @@
 
 namespace CodeBase.Infrastructure.States
 {
+    /// <summary>
+    /// State used for loading and applying persistent data to game world
+    /// </summary>
+    ///Now is empty, but could be used with ease for future
     public class LoadProgressState : IState
     {
         private readonly GameStateMachine _gameStateMachine;
@@ -34,12 +38,6 @@ namespace CodeBase.Infrastructure.States
         private PlayerProgress NewProgress()
         {
            var progress = new PlayerProgress(initialLevel: "Main");
-           progress.HeroState.MaxHp = 50;
-           progress.HeroState.ResetHP();
-
-           progress.HeroStats.Damage = 1;
-           progress.HeroStats.CleaveRadius = 0.5f;
-           
            return progress;
         }
     }

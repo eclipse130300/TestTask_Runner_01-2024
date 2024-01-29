@@ -1,5 +1,6 @@
 ﻿namespace CodeBase.Infrastructure.States
 {
+    //classes for state machine
     public interface IState : IExitableState
     {
         void Enter();

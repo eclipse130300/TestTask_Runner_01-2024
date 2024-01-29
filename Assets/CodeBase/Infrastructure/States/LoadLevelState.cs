@@ -2,11 +2,14 @@
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
-using CodeBase.UI.Services;
+using CodeBase.UI;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
+    /// <summary>
+    /// generates and instantiates all dynamic objects in the game world
+    /// </summary>
     public class LoadLevelState : IPayloadedState<string>
     {
         private readonly GameStateMachine _stateMachine;

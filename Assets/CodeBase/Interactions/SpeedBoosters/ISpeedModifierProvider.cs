@@ -1,4 +1,10 @@
-﻿public interface ISpeedModifierProvider
+﻿namespace CodeBase.Interactions
 {
-    public float GetSpeedModifier();
+    /// <summary>
+    /// Abstraction for speed data provider
+    /// </summary>
+    public interface ISpeedModifierProvider
+    {
+        public float GetSpeedModifier();
+    }
 }

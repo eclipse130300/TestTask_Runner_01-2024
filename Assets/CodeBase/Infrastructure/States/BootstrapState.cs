@@ -2,11 +2,14 @@
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Services.Input;
 using CodeBase.StaticData;
-using CodeBase.UI.Services;
+using CodeBase.UI;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
+    /// <summary>
+    /// state used for initialization & registration of services
+    /// </summary>
     public class BootstrapState : IState
     {
         private const string INITIAL_SCENE = "Initial";

@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace CodeBase.StaticData
 {
+    /// <summary>
+    /// Main config containing all game settings
+    /// </summary>
     [CreateAssetMenu(fileName = "LevelData", menuName = "StaticData/Level")]
     //we could make separate configs, but for test proj, whatever
     public class GameStaticData : ScriptableObject

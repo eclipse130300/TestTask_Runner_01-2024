@@ -8,8 +8,11 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace CodeBase.UI.Services
+namespace CodeBase.UI
 {
+    /// <summary>
+    /// Service responsible for ladoing and caching UI Windows 
+    /// </summary>
     public class UIService : IUIService
     {
         private const string BasePath = "Windows/";
@@ -136,9 +139,7 @@ namespace CodeBase.UI.Services
             return true;
         }
 
-        public void CleanUp()
-        {
+        public void CleanUp() => 
             _intstantiatedList.Clear();
-        }
     }
 }

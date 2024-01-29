@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
-using CodeBase.UI.Services;
+using CodeBase.UI;
 
 namespace CodeBase.Infrastructure.States
 {
+    /// <summary>
+    /// FSM for game
+    /// </summary>
     public class GameStateMachine
     {
         private readonly Dictionary<Type,IExitableState> _states;

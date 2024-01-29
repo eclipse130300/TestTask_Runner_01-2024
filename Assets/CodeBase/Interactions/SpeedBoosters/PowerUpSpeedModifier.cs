@@ -2,34 +2,39 @@
 using CodeBase.Infrastructure;
 using UnityEngine;
 
-[RequireComponent(typeof(ISpeedModifierProvider))]
-public class PowerUpSpeedModifier : MonoBehaviour, IInteractable
+namespace CodeBase.Interactions
 {
-    private ILevelRunnerService _levelRunnerService;
-    private IStaticDataService _staticDataService;
-
-    private ISpeedModifierProvider _speedModifierProvider;
-    private ICoroutineRunnerService _coroutineRunnerService;
-
-    private void Awake()
+    /// <summary>
+    /// Takes data from provider component and modifies level run speed
+    /// </summary>
+    [RequireComponent(typeof(ISpeedModifierProvider))]
+    public class PowerUpSpeedModifier : MonoBehaviour, IInteractable
     {
-        _speedModifierProvider = GetComponent<ISpeedModifierProvider>();
+        private ILevelRunnerService _levelRunnerService;
+        private IStaticDataService _staticDataService;
 
-        _levelRunnerService = AllServices.Container.Single<ILevelRunnerService>();
-        _staticDataService = AllServices.Container.Single<IStaticDataService>();
-        _coroutineRunnerService = AllServices.Container.Single<ICoroutineRunnerService>();
-    }
+        private ISpeedModifierProvider _speedModifierProvider;
+        private ICoroutineRunnerService _coroutineRunnerService;
 
-    public void Interact(GameObject interactionInvoker) => 
-        _coroutineRunnerService.StartCoroutine(PowerUpRoutine());
+        private void Awake()
+        {
+            _speedModifierProvider = GetComponent<ISpeedModifierProvider>();
 
-    private IEnumerator PowerUpRoutine()
-    {
-        var speedModifier = _speedModifierProvider.GetSpeedModifier();
-        _levelRunnerService.ModifyCurrentSpeed(speedModifier);
+            _levelRunnerService = AllServices.Container.Single<ILevelRunnerService>();
+            _staticDataService = AllServices.Container.Single<IStaticDataService>();
+            _coroutineRunnerService = AllServices.Container.Single<ICoroutineRunnerService>();
+        }
 
-        yield return new WaitForSeconds(_staticDataService.ForGame().PowerUpDuration);
-        
-        _levelRunnerService.ModifyCurrentSpeed(-speedModifier);
+        public void Interact(GameObject interactionInvoker) => _coroutineRunnerService.StartCoroutine(PowerUpRoutine());
+
+        private IEnumerator PowerUpRoutine()
+        {
+            var speedModifier = _speedModifierProvider.GetSpeedModifier();
+            _levelRunnerService.ModifyCurrentSpeed(speedModifier);
+
+            yield return new WaitForSeconds(_staticDataService.ForGame().PowerUpDuration);
+
+            _levelRunnerService.ModifyCurrentSpeed(-speedModifier);
+        }
     }
 }

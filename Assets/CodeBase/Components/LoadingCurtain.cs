@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace CodeBase.Logic
 {
+    /// <summary>
+    /// Loading curtain, hiding mainly level loading
+    /// </summary>
     public class LoadingCurtain : MonoBehaviour
     {
         [SerializeField]

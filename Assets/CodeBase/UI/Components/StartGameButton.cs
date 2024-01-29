@@ -1,5 +1,4 @@
-﻿using System;
-using EventBusSystem;
+﻿using EventBusSystem;
 using Events;
 using UnityEngine;
 using UnityEngine.UI;

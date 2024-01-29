@@ -3,15 +3,19 @@ using EventBusSystem;
 using Events;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour, IInteractable
+namespace CodeBase.Interactions
 {
-    public void Interact(GameObject interactionInvoker)
+    //component player can hit&die
+    public class Obstacle : MonoBehaviour, IInteractable
     {
-        if (interactionInvoker.TryGetComponent<PlayerMove>(out _))
+        public void Interact(GameObject interactionInvoker)
         {
-            //this is the player
-            //we just end game
-            EventBus.RaiseEvent<IGameplayFinishedHandler>(x => x.OnGameLoopFinished());
+            if (interactionInvoker.TryGetComponent<PlayerMove>(out _))
+            {
+                //this is the player
+                //we just end game
+                EventBus.RaiseEvent<IGameplayFinishedHandler>(x => x.OnGameLoopFinished());
+            }
         }
     }
 }

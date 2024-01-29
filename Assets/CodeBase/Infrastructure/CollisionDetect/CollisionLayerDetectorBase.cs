@@ -11,12 +11,6 @@ namespace CodeBase.Infrastructure.CollisionDetection
         private CollisionLayerDetector _triggerDetector;
         private CollisionLayerDetector _collisionDetect;
 
-        private bool _isActive;
-        private void Awake()
-        {
-            _isActive = true;
-        }
-
         public CollisionLayerDetector CollisionDetect => _collisionDetect ?? new CollisionLayerDetector(_layerToDetect, _onlyOnce);
         public CollisionLayerDetector TriggerDetector => _triggerDetector ?? new CollisionLayerDetector(_layerToDetect, _onlyOnce);
 
@@ -36,16 +30,12 @@ namespace CodeBase.Infrastructure.CollisionDetection
         {
             TriggerDetector.Activate();
             CollisionDetect.Activate();
-
-            _isActive = true;
         }
 
         public void Deactivate()
         {
             TriggerDetector.Deactivate();
             CollisionDetect.Deactivate();
-
-            _isActive = false;
         }
     }
 }

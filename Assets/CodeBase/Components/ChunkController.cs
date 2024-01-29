@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace CodeBase.Chunks
 {
+    /// <summary>
+    /// Moves each level chunk to the end of the level
+    /// Reports with event when it's done
+    /// </summary>
     public class ChunkController : MonoBehaviour
     {
         public Transform ChunkVisualTransform => _chunkVisualTransform;

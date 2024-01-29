@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Common interface of all possible objects player can interact with
-/// </summary>
-public interface IInteractable
+namespace CodeBase.Interactions
 {
-    public void Interact(GameObject interactionInvoker);
+    /// <summary>
+    /// Common interface of all possible objects one can interact with
+    /// </summary>
+    public interface IInteractable
+    {
+        public void Interact(GameObject interactionInvoker);
+    }
 }

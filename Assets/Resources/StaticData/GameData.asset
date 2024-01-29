@@ -19,7 +19,7 @@ MonoBehaviour:
   ChunkRows: 30
   ChunkSideBorders: 1.5
   PreloadedChunks: 3
-  SafeRunZone: 10
+  SafeRunZone: 20
   PerlinScale: 0.23
   ObstaclePercentInChunk: 0
   DontSpawnObstaclesOnStartRowsAmount: 3

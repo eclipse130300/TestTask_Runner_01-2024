@@ -1,3 +1,6 @@
-﻿public class PausedGameWindow : BaseWindow
+﻿namespace CodeBase.UI
 {
+    public class PausedGameWindow : BaseWindow
+    {
+    }
 }
