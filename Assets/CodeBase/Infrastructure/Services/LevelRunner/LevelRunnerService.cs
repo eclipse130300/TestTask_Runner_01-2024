@@ -1,9 +1,6 @@
-﻿using System;
-using EventBusSystem;
-using Events;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class LevelRunnerService : ILevelRunnerService, ITickable, IGameLoopStartedHandler, IGameLoopFinishedHandler, IDisposable
+public class LevelRunnerService : ILevelRunnerService, ITickable
 {
     private readonly ILevelGeneratorService _levelGeneratorService;
     
@@ -14,14 +11,12 @@ public class LevelRunnerService : ILevelRunnerService, ITickable, IGameLoopStart
     {
         _levelGeneratorService = levelGeneratorService;
         _currentSpeed = staticDataService.ForGame().ScrollSpeed;
-        
-        EventBus.Subscribe(this);
     }
     
-    public void OnGameLoopStated() => 
+    public void Run() => 
         _isRunning = true;
 
-    public void OnGameLoopFinished() => 
+    public void Stop() => 
         _isRunning = false;
 
     public void Tick(float deltaTime)
@@ -39,10 +34,5 @@ public class LevelRunnerService : ILevelRunnerService, ITickable, IGameLoopStart
     {
         //Debug.Log($"Modified current from {_currentSpeed} for {delta}");
         _currentSpeed += delta;
-    }
-
-    public void Dispose()
-    {
-        EventBus.Unsubscribe(this);
     }
 }

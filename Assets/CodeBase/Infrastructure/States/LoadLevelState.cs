@@ -57,7 +57,7 @@ namespace CodeBase.Infrastructure.States
             InitGameWorld();
             InformProgressReaders();
 
-            _stateMachine.Enter<GameplayPausedState, bool>(true);
+            _stateMachine.Enter<GameplayState, bool>(true);
         }
 
         private void InitUIRoot() => 

@@ -30,7 +30,9 @@ namespace CodeBase.Infrastructure.States
                     services.Single<IPersistentProgressService>(),
                     services.Single<ISaveLoadService>()),
                 
-                [typeof(GameplayPausedState)] = new GameplayPausedState(this),
+                [typeof(GameplayState)] = new GameplayState(this,
+                    services.Single<ILevelRunnerService>()
+                    ,services.Single<IUIService>()),
             };
         }
     

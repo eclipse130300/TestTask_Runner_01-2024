@@ -2,7 +2,7 @@
 
 namespace Events
 {
-    public interface IGameLoopStartedHandler : IGlobalSubscriber
+    public interface IGameplayStartedHandler : IGlobalSubscriber
     {
         void OnGameLoopStated();
     }

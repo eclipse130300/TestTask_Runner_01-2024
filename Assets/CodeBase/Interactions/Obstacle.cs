@@ -11,7 +11,7 @@ public class Obstacle : MonoBehaviour, IInteractable
         {
             //this is the player
             //we just end game
-            EventBus.RaiseEvent<IGameLoopFinishedHandler>(x => x.OnGameLoopFinished());
+            EventBus.RaiseEvent<IGameplayFinishedHandler>(x => x.OnGameLoopFinished());
         }
     }
 }
