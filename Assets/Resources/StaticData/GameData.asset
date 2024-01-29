@@ -33,6 +33,6 @@ MonoBehaviour:
   SpeedDownModifier: -3
   FlyingHeight: 3
   TakeOffTime: 2
-  UiAnimationTime: 0.2
+  UiAnimationTime: 1
   UiMinAlpha: 0.1
   UiMaxScale: 1.2

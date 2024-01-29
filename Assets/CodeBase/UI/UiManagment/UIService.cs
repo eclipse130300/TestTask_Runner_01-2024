@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CodeBase.Infrastructure.AssetManagement;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -30,10 +31,10 @@ namespace CodeBase.UI.Services
             _root = _assets.Instantiate(UI_ROOT_PATH).transform;
         
         
-        public async Task<bool> ShowPopup<T>() where T : BaseWindow
+        public async UniTask<bool> ShowPopup<T>() where T : BaseWindow
         {
             Debug.Log($"Showing popup {typeof(T).Name}");
-            var tcs = new TaskCompletionSource<bool>();
+            var tcs = new UniTaskCompletionSource<bool>();
 
             var instantiated = await HandleIntatntiatedPopupLoad<T>(tcs);
             if(instantiated)
@@ -44,7 +45,7 @@ namespace CodeBase.UI.Services
             return await tcs.Task;
         }
         
-        public async Task<bool> HidePopup<T>() where T : BaseWindow
+        public async UniTask<bool> HidePopup<T>() where T : BaseWindow
         {
             Debug.Log($"Hiding popup {nameof(T)}");
 
@@ -63,7 +64,7 @@ namespace CodeBase.UI.Services
             return await tcs.Task;
         }
 
-        private async Task<bool> HandleIntatntiatedPopupLoad<T>(TaskCompletionSource<bool> tcs) where T :  BaseWindow
+        private async UniTask<bool> HandleIntatntiatedPopupLoad<T>(UniTaskCompletionSource<bool> tcs) where T :  BaseWindow
         {
             var type = typeof(T);
             
@@ -81,7 +82,7 @@ namespace CodeBase.UI.Services
             return false;
         }
 
-        private void HandleAsyncPopupLoad<T>(TaskCompletionSource<bool> tcs) where T : BaseWindow
+        private void HandleAsyncPopupLoad<T>(UniTaskCompletionSource<bool> tcs) where T : BaseWindow
         {
             var type = typeof(T);
             var path = Path.Combine(BasePath, type.Name);
@@ -106,7 +107,7 @@ namespace CodeBase.UI.Services
             };
         }
 
-        private static async Task ShowLogic(WindowInfo windowInfo)
+        private async UniTask ShowLogic(WindowInfo windowInfo)
         {
             windowInfo.GameObject.SetActive(true);
             
@@ -114,10 +115,9 @@ namespace CodeBase.UI.Services
                 await windowInfo.Animator.AnimateShow();
         }
 
-        private static async Task HideLogic(WindowInfo windowInfo)
+        private async UniTask HideLogic(WindowInfo windowInfo)
         {
-            if(windowInfo.HasAnimator())
-                await windowInfo.Animator.AnimateHide();
+            await windowInfo.Animator.AnimateHide();
             
             windowInfo.GameObject.SetActive(false);
         }

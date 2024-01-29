@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 
 public interface IWindowAnimator
 {
-    public Task AnimateShow();
-    public Task AnimateHide();
+    public UniTask AnimateShow();
+    public UniTask AnimateHide();
 }

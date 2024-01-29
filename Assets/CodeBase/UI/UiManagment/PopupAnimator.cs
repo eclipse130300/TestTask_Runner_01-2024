@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Threading.Tasks;
 using CodeBase.Infrastructure;
-using UnityEditor;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class PopupAnimator : MonoBehaviour, IWindowAnimator
@@ -23,32 +23,28 @@ public class PopupAnimator : MonoBehaviour, IWindowAnimator
         _animationTime = _staticDataService.ForGame().UiAnimationTime;
     }
 
-    public Task AnimateShow()
+    public UniTask AnimateShow()
     {
         var staticData = _staticDataService.ForGame();
         
         _canvasGroup.alpha = staticData.UiMinAlpha;;
         transform.localScale = Vector3.one * staticData.UiMaxScale;
         
-        var tcs = new TaskCompletionSource<bool>();
-
         _coroutineRunnerService.StartCoroutine(AnimateRoutine(1, 1));
 
-        return Task.Delay(TimeSpan.FromSeconds(_animationTime));
+        return UniTask.Delay(TimeSpan.FromSeconds(_animationTime));
     }
 
-    public Task AnimateHide()
+    public UniTask AnimateHide()
     {
         var staticData = _staticDataService.ForGame();
         
         _canvasGroup.alpha = 1;
         transform.localScale = Vector3.one;
         
-        var tcs = new TaskCompletionSource<bool>();
-        
         _coroutineRunnerService.StartCoroutine(AnimateRoutine(staticData.UiMinAlpha, staticData.UiMaxScale));
 
-        return Task.Delay(TimeSpan.FromSeconds(_animationTime));;
+        return UniTask.Delay(TimeSpan.FromSeconds(_animationTime));
     }
 
     private IEnumerator AnimateRoutine(float toAlpha, float toScale)
